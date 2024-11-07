@@ -1,0 +1,7 @@
+{
+    "username": "root",
+    "password": "Arsenal5-2",
+    "database": "sports_homepagedb",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+}

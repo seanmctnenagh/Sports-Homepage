@@ -1,0 +1,153 @@
+.App {
+  text-align: center;
+}
+
+tr {
+  border-color: black !important;
+}
+
+td {
+  font-weight: bold;
+  opacity: 0.8 !important;
+}
+
+.live {
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% {
+      color: #FF7F90;
+  }
+
+  50% {
+      color: #cf142b;
+  }
+
+  100% {
+      color: #FF7F90;
+  }
+}
+
+.PL {
+  background-color: #2684FC !important;
+  color: white !important;
+}
+
+.CL {
+  background-color: rgb(230, 196, 5) !important;
+  color: white !important;
+  opacity: 1 !important
+}
+
+.UEL {
+  background-color: silver !important;
+}
+
+.UECL { 
+  background-color: #CD7F32 !important;
+}
+
+.NFL {
+  background-color: rgb(255, 0, 21) !important;
+  color: white !important;
+}
+
+.NCAA {
+  background-color: brown !important;
+  color: white !important
+}
+
+.F1 {
+  background-color: #00cc00 !important;
+}
+
+.AFL {
+  background-color: silver !important;
+}
+
+.URC {
+  background-color: #ff33cc !important;
+}
+
+
+
+.BLANK { 
+  font-size:xx-large;
+  height: 4rem;
+  vertical-align: middle;
+}
+
+.Bundesliga, .Pokal, .BuLi {
+  background-image: linear-gradient(black, red, yellow);
+  color: white !important;
+}
+
+.Serie {
+  background-image: linear-gradient(green, white, red);
+}
+
+.Ligue {
+  background-image: linear-gradient(red, white, blue);
+}
+
+.Liga, .Rey {
+  background-image: linear-gradient(red, yellow, red);
+}
+
+.WSL {
+  background-color: rgb(0, 247, 255) !important;
+}
+
+.SPL {
+  background-color: darkgreen !important;
+  color: white !important;
+}
+
+.MLB {
+  background-color: navy !important;
+  color: white !important;
+}
+
+.UWCL { 
+  background-color: pink !important;
+}
+
+.League {
+  background-color: #d5ff3d !important;
+  color: black !important;
+}
+
+.FA {
+  background-color: darkmagenta !important;
+  color: white !important;
+}
+
+.Nations {
+  background-color: orange !important;
+}
+
+.NHL {
+    background-color: black !important;
+    color: white !important;
+}
+
+.LOI {
+    background-color: green !important;
+    color: white !important;
+}
+
+.Euro {
+  background-color: #0058ca !important;
+  color: white !important;
+}
+
+.Friendly {
+  background-color: pink !important;
+}
+
+.NBA { 
+  background-color: purple !important;
+  color: white !important;
+}
+
