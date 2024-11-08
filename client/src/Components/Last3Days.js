@@ -1,12 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
 
 import { Redirect } from 'react-router-dom';
 
 import Table from "react-bootstrap/Table";
 
-import { teamOrder, versusSymbol, titleClick, ncaaRanks, compClick, highlights, checkDates, checkBreakouts, showScore, ip } from "./utils";
+import { teamOrder, versusSymbol, checkDates, checkBreakouts, ip } from "./utils";
+
+import Competition from "./TableElements/Competition";
+import Title from "./TableElements/Title";
+import DayDate from "./TableElements/DayDate";
+import Time from "./TableElements/Time";
+import Score from "./TableElements/Score";
+import Highlights from "./TableElements/Highlights";
+import RecapStream from "./TableElements/RecapStream";
+
 
 const Last3Days = () => {
 	const [listOfMatches, setListOfMatches] = useState([]);
@@ -67,70 +75,31 @@ const Last3Days = () => {
 						return (
 							<tr key={match.matchId}>
                                 {/*        Competition        */}
-								<td className={match.competition} onClick={() => compClick(match)}>
-									{(match.competition === "BLANK") ?
-										(<>
-
-										</>) : (
-											<>
-												{match.competition}
-											</>
-										)}
-								</td>
+                                <Competition match={match} />
 
                                 
-								{/*        Team vs Team        */}
-								<td className={match.competition} onClick={() => { if(titleClick(match, false)){redirect(match.sport);}}}>
-									{team1}{ncaaRanks(team1)} {vs} {team2}{ncaaRanks(team2)}
-								</td>
+                                {/*        Team vs Team        */}
+                                <Title match={match} team1={team1} team2={team2} vs={vs} redirect={redirect} />
 
 
-								{/*        Date & Day        */}
-								<td className={match.competition}>
-									{(match.competition === "BLANK") ?
-										(<>
-
-										</>) : (
-											<>
-												{new Intl.DateTimeFormat("en-US", { weekday: "short", }).format(date)}{" "}{date.getDate()}
-											</>
-										)}
-								</td>
+                                {/*        Date & Day        */}
+                                <DayDate match={match} date={date} redirect={redirect} />
 
 
-								{/*        Time        */}
-								<td className={match.competition}>
-									{(match.competition === "BLANK") ?
-										null : (
-											<>
-												{("0" + date.getHours()).slice(-2)}:{("0" + date.getMinutes()).slice(-2)}
-											</>
-										)}
-								</td>
+                                {/*        Time        */}
+                                <Time match={match} date={date} redirect={redirect} />
 
 
-								{/*        Score        */}
-								<td className={match.competition}>
-									{
-										(match.score != null) && listOfShowScores[index]
-											?
-											(<><p>{match.score} {match.minute}</p></>)
-											:
-											(match.competition === "BLANK" ? null : (match.score == null ? null : <><Button onClick={() => { setListOfShowScores(showScore(index, listOfShowScores)); }}>Score</Button></>))
-									}
-								</td>
+                                {/*        Score        */}
+                                <Score match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} />
 
 
-								{/*        Highlights        */}			
-								<td className={match.competition}>
-									{
-										(match.highlights)
-											?
-											<Button variant="warning" onClick={() => { highlights(match) }}>Highlights</Button>
-											:
-											null
-									}
-								</td>
+                                {/*        Highlights        */}
+                                <Highlights match={match} />
+
+
+                                {/*        ESPN Recap / Stream        */}
+                                <RecapStream match={match} />
 							</tr>
 						);
 					})}

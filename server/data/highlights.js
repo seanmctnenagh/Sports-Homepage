@@ -44,6 +44,7 @@ function processMatches(matches) {
   let laLigaList = [];
   let ligue1List = [];
   let splList = [];
+  let nbaList = [];
 
   for (let i = 0; i < count; i++) {
     switch (matches[i].competition) {
@@ -96,6 +97,9 @@ function processMatches(matches) {
 			break;
 		case "Ligue 1":
 			ligue1List.push(matches[i]);
+			break;
+		case "NBA":
+			nbaList.push(matches[i]);
 			break;
 		
     }
@@ -163,6 +167,10 @@ function processMatches(matches) {
 
   if (splList.length){
 	spl(splList);
+  }
+
+  if (nbaList.length) {
+	nba(nbaList);
   }
 
 }
@@ -441,10 +449,17 @@ function cl(matches) {
 				"Sparta Praha" 		: "Sparta Prague",
 				"Sporting CP"		: "Sporting",
 				"VfB Stuttgart"		: "Stuttgart",
-				"Stade Brestois 29"	: "Brest"
+				"Stade Brestois 29"	: "Brest",
+				"The New Saints"	: "TNS"
 			}
   
-  
+			
+			if (match.homeTeam.startsWith("FC ")){match.homeTeam = match.homeTeam.split("FC ")[0]}
+			if (match.awayTeam.startsWith("FC ")){match.awayTeam = match.awayTeam.split("FC ")[0]}
+			if (match.homeTeam.endsWith(" FC")){match.homeTeam = match.homeTeam.split(" FC")[0]}
+			if (match.awayTeam.endsWith(" FC")){match.awayTeam = match.awayTeam.split(" FC")[0]}
+
+
 			let homeTerms = [match.homeTeam];
 			if (teamNameAlts.hasOwnProperty(match.homeTeam)) {homeTerms.push(teamNameAlts[match.homeTeam])};
 
@@ -1117,6 +1132,55 @@ function nhl(matches) {
 			  home[home.length - 1],
 			  away[away.length - 1],
 			  "Highlights"
+			];
+  
+			const found = terms.every((term) =>
+			  video.snippet.title.includes(term)
+			);
+			if (found) {
+			  link = `https://www.youtube.com/watch?v=${video.snippet.resourceId.videoId}`;
+			  Matches.update(
+				{
+				  highlights: link,
+				},
+				{ where: { matchId: match.matchId } }
+			  ).catch((err) => console.log(err));
+
+			  break;
+			}
+		  }
+		}
+	  })
+	  .catch((error) => {
+		// Handle the error
+		console.log("Error" + error);
+	  });
+}
+
+function nba(matches) {
+	fetch(
+	  "https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyDSVKwHTlQATHyqEmCVZYJiGKPKgLge0YY&part=snippet&playlistId=UULd4dSmXdrJykO_hgOzbfPw&maxResults=50",
+	  {
+		method: "get",
+	  }
+	)
+	  .then((response) => response.json())
+	  .then((videos) => {
+		let vidCount = videos.pageInfo.resultsPerPage;
+		let matchCount = matches.length;
+  
+		for (let j = 0; j < matchCount; j++) {
+		  let match = matches[j].dataValues;
+		  for (let i = 0; i < vidCount; i++) {
+			let video = videos.items[i];
+
+			let home = match.homeTeam.split(" ");
+			let away = match.awayTeam.split(" ");
+
+			let terms = [
+			  home[home.length - 1],
+			  away[away.length - 1],
+			  "Recap"
 			];
   
 			const found = terms.every((term) =>

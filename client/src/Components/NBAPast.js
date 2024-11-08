@@ -1,10 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Button from 'react-bootstrap/Button';
 
 import Table from "react-bootstrap/Table";
 
-import { teamOrder, versusSymbol, titleClick, compClick, highlights, espnRecap, sportCheck, checkDates, showScore, ip } from "./utils";
+import Competition from "./TableElements/Competition";
+import Title from "./TableElements/Title";
+import DayDate from "./TableElements/DayDate";
+import Time from "./TableElements/Time";
+import Score from "./TableElements/Score";
+import Highlights from "./TableElements/Highlights";
+import RecapStream from "./TableElements/RecapStream";
+
+import { teamOrder, versusSymbol, sportCheck, checkDates, ip } from "./utils";
 
 const NBAPast = () => {
     const [listOfMatches, setListOfMatches] = useState([]);
@@ -43,76 +50,31 @@ const NBAPast = () => {
                         return (
                             <tr key={match.matchId}>
                                 {/*        Competition        */}
-                                <td className={match.competition} onClick={() => compClick(match)}>
-                                    {(match.competition === "BLANK") ?
-                                        (<>
+                                <Competition match={match} />
 
-                                        </>) : (
-                                            <>
-                                                {match.competition}
-                                            </>
-                                        )}
-                                </td>
-
-
+                                
                                 {/*        Team vs Team        */}
-                                <td className={match.competition} onClick={() => titleClick(match, true)}>
-                                    {team1} {vs} {team2}
-                                </td>
+                                <Title match={match} team1={team1} team2={team2} vs={vs} breakout={true} />
 
 
                                 {/*        Date & Day        */}
-                                <td className={match.competition}>
-                                    {(match.competition === "BLANK") ?
-                                        (<>
-
-                                        </>) : (
-                                            <>
-                                                {new Intl.DateTimeFormat("en-US", { weekday: "short", }).format(date)}{" "}{date.getDate()}
-                                            </>
-                                        )}
-                                </td>
+                                <DayDate match={match} date={date} breakout={true} />
 
 
                                 {/*        Time        */}
-                                <td className={match.competition}>
-                                    {(match.competition === "BLANK") ?
-                                        null : (
-                                            <>
-                                                {("0" + date.getHours()).slice(-2)}:{("0" + date.getMinutes()).slice(-2)}
-                                            </>
-                                        )}
-                                </td>
+                                <Time match={match} date={date} breakout={true} />
 
 
                                 {/*        Score        */}
-                                <td className={match.competition}>
-                                    {
-                                        (match.score != null) && listOfShowScores[index]
-                                            ?
-                                            (<><p>{match.score} {match.minute}</p></>)
-                                            :
-                                            (match.competition === "BLANK" ? null : (match.score == null ? null : <><Button onClick={() => { setListOfShowScores(showScore(index, listOfShowScores)); }}>Score</Button></>))
-                                    }
-                                </td>
+                                <Score match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} />
 
 
                                 {/*        Highlights        */}
-                                <td className={match.competition}>
-                                    {
-                                        (match.highlights)
-                                            ?
-                                            <Button variant="warning" onClick={() => { highlights(match) }}>Highlights</Button>
-                                            :
-                                            null
-                                    }
-                                </td>
+                                <Highlights match={match} />
 
 
-                                {/*        ESPN Recap        */}
-                                <td className={match.competition}>
-                                    { (match.score != null) ? <i onClick={() => { espnRecap(match) }} className="bi bi-newspaper" style={{ fontSize: "1.5rem" }}></i> : null}
-                                </td>
+                                {/*        ESPN Recap / Stream        */}
+                                <RecapStream match={match} />
                             </tr>
                         );
                     })}

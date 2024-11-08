@@ -76,6 +76,7 @@ function organiseData(data){
         match.dateUnix = thisMatch.timestamp;
         match.date = new Date(thisMatch.timestamp * 1000).toISOString();
         match.date = match.date.slice(0,19) + "Z";
+		match.endDate = match.dateUnix + 7200;
         match.competition = thisMatch.league.name;
         match.homeTeam = thisMatch.teams.home.name;
         match.awayTeam = thisMatch.teams.away.name;
@@ -115,7 +116,8 @@ function organiseData(data){
                             completed: match.completed,
                             score: match.score,
                             minute: match.minute,
-                            highlights: match.highlights
+                            highlights: match.highlights,
+                            endDate: match.endDate
                         },
                         {where: {matchId: match.matchId.toString()}}
                     ).then()

@@ -91,8 +91,8 @@ export const highlights = (match) => {
     window.open(match.highlights, "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=720, height=720, top=30");
 }
 
-export const tv = (match) =>{
-    if (match.competition === "NHL") {
+export const tv = (match, breakout) =>{
+    if ((match.competition === "NHL" || match.competition === "NBA") && !breakout) {
         return true;
     } 
     else if (match.competition !== "BLANK") {
@@ -143,9 +143,9 @@ export const sportCheck = (match, sport, blanks) => {
 export const checkDates = (match, timeframe) => {
 
     if (timeframe === "future"){
-        let date = new Date(match.date);
+        let date = new Date(match.endDate * 1000);
         let today = new Date(Date.now());
-        today.setHours(0, 0, 0, 0);
+        // today.setHours(0, 0, 0, 0);
 
         if (date - today < 0) {
             // 1 hour = 3600s = 3600000ms // 3 hours = 10800s = 10800000ms
@@ -160,9 +160,9 @@ export const checkDates = (match, timeframe) => {
         return true;
     }
     else if (timeframe === "past"){
-        let date = new Date(match.date);
+        let date = new Date(match.endDate * 1000);
         let today = new Date(Date.now());
-        today.setHours(4, 0, 0, 0);
+        // today.setHours(4, 0, 0, 0);
 
         if (date > today) { // Future/Past Check
             return false;
@@ -247,3 +247,18 @@ export const showScore = (index, listOfShowScores) => {
 }
 
 export const ip = "192.168.1.15";
+
+export const stream = (match) => {
+    let team = match.homeTeam;
+    team = team.replaceAll(" ", "-")
+
+    let type = "";
+    if ( match.sport === "Soccer" ) {
+        type = "soccer";
+    }
+    else { type = match.competition.toLowerCase() }
+
+    let query = `https://720pstream.nu/${type}/live-${team}`;
+    
+    window.open(query.toLowerCase(), "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=720, height=720, top=30");
+}

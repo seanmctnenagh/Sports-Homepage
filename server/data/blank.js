@@ -15,6 +15,7 @@ function blank() {
         blank.homeTeam = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(day);
         blank.awayTeam = "";
         blank.completed = "1";
+        blank.endDate = blank.dateUnix;
 
         Matches.create(blank)
             .catch(err => {})
