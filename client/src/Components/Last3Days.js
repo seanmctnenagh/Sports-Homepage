@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import Table from "react-bootstrap/Table";
 
-import { teamOrder, versusSymbol, titleClick, ncaaRanks, compClick, highlights, checkDates, checkBreakouts, showScore } from "./utils";
+import { teamOrder, versusSymbol, titleClick, ncaaRanks, compClick, highlights, checkDates, checkBreakouts, showScore, ip } from "./utils";
 
 const Last3Days = () => {
 	const [listOfMatches, setListOfMatches] = useState([]);
@@ -20,21 +20,12 @@ const Last3Days = () => {
 	}, []); // Condition for GET request
 
 	function getData() {
-		// axios.get("//localhost:3001/matches").then((response) => {
-		axios.get("http://192.168.1.15:3001/matches").then((response) => {
+        axios.get(`http://${ip}:3001/matches`).then((response) => {
 			setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));
 			// setListOfShowScores(initializeArrayWithValues(0, response.length));
 		});
 
 	}
-
-	// function showScore(index) {
-	// 	const newItems = [...listOfShowScores];
-
-	// 	newItems[index] = 1;
-
-	// 	setListOfShowScores(newItems);
-	// }
 
 	function redirect(sport) {
 		switch (sport) {

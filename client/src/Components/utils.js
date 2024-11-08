@@ -245,3 +245,5 @@ export const showScore = (index, listOfShowScores) => {
 
     // setListOfShowScores(newItems);
 }
+
+export const ip = "192.168.1.15";

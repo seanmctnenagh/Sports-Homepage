@@ -4,24 +4,19 @@ import Button from 'react-bootstrap/Button';
 
 import Table from "react-bootstrap/Table";
 
-import { teamOrder, versusSymbol, titleClick, compClick, highlights, tv, liveCheck, sportCheck, checkDates, espnRecap, showScore } from "./utils";
+import { teamOrder, versusSymbol, titleClick, compClick, highlights, tv, liveCheck, sportCheck, checkDates, espnRecap, showScore, ip } from "./utils";
 
 const HockeyFuture = () => {
     const [listOfMatches, setListOfMatches] = useState([]);
     const [listOfShowScores, setListOfShowScores] = useState([]);
-    // const initializeArrayWithValues = (n, val = 0) => Array(n).fill(val);
 
     useEffect(() => {
         getData();
         setInterval(getData, 30000);
     }, []); // Condition for GET request
 
-    // 
-    // 
-
     function getData() {
-        // axios.get("//localhost:3001/matches").then((response) => {
-        axios.get("http://192.168.1.15:3001/matches").then((response) => {
+        axios.get(`http://${ip}:3001/matches`).then((response) => {
             setListOfMatches(response.data.sort((a, b) => a.dateUnix - b.dateUnix));
             // setListOfShowScores(initializeArrayWithValues(0, response.length));
         });

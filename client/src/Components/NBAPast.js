@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 import Table from "react-bootstrap/Table";
 
-import { teamOrder, versusSymbol, titleClick, compClick, highlights, espnRecap, sportCheck, checkDates, showScore } from "./utils";
+import { teamOrder, versusSymbol, titleClick, compClick, highlights, espnRecap, sportCheck, checkDates, showScore, ip } from "./utils";
 
 const NBAPast = () => {
     const [listOfMatches, setListOfMatches] = useState([]);
@@ -16,7 +16,7 @@ const NBAPast = () => {
     }, []); // Condition for GET request
 
     function getData() {
-        axios.get("http://192.168.1.15:3001/matches").then((response) => {
+        axios.get(`http://${ip}:3001/matches`).then((response) => {
             setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));
         });
 
