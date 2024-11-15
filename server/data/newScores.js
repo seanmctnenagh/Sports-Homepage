@@ -307,6 +307,69 @@ function updateBaseball(match) {
 
 function rugby(matches) {
 	console.log("Getting Rugby Scores...");
+	let matchCount = matches.length;
+
+	let dates = [];
+	let matchIds = [];
+
+	for (let j = 0; j < matchCount; j++) {
+		let date = matches[j].dataValues.date.split("T")[0];
+		if (!dates.includes(date)) { dates.push(date) }
+		matchIds.push(matches[j].dataValues.matchId);
+	}
+
+	for (let i = 0; i < dates.length; i++) {
+		let url = `https://v1.rugby.api-sports.io/games?date=${dates[i]}`;
+		fetch(url, {
+			method: "get",
+			headers: new Headers({
+				"x-rapidapi-key": "90ff826b72e0b865ca8281b84d41c423",
+			}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+
+				let matches = data.response;
+				let matchCount = data.results;
+
+				for (let x = 0; x < matchCount; x++) {
+					if (matchIds.includes(matches[x].id.toString())) {
+						updateRugby(matches[x]);
+					}
+				}
+			});
+	}
+
+
+}
+
+function updateRugby(match) {
+	let completed = false;
+	let score = null;
+	let minute = null;
+	try {
+		if (match.status.short == "FT" || match.status.short == "AET") {
+			completed = 1;
+			score = `${match.scores.home}-${match.scores.away}`;
+			minute = match.status.short;
+		} else if (match.status.short == ["PST", "CANC", "ABD", "ABD", "AW"]) {
+			completed = 1;
+			score = match.status.long;
+			minute = null;
+		} 
+	} catch (err) {
+		console.log(match.matchId);
+		console.log(match);
+	}
+
+	Matches.update(
+		{
+			completed: completed,
+			score: score,
+			minute: minute,
+		},
+		{ where: { matchId: match.id } }
+	).catch((err) => console.log(`Error in scores - rugby(): ${err}`));
 }
 
 
@@ -380,6 +443,9 @@ function updateHockey(match) {
 		{ where: { matchId: match.id } }
 	).catch((err) => console.log(`Error in scores - hockey(): ${err}`));
 }
+
+
+
 
 function NBA(matches) {
 	console.log("Getting NBA Scores...");

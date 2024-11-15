@@ -83,7 +83,7 @@ function processMatches(matches) {
 		case "LOI":
 			loiList.push(matches[i]);
 			break;
-		case "Bundesliga":
+		case "BuLi":
 			bundesligaList.push(matches[i]);
 			break;
 		case "SPL":
@@ -306,41 +306,53 @@ function pl(matches) {
       for (let j = 0; j < matchCount; j++) {
         let match = matches[j].dataValues;
 
-        for (let i = 0; i < vidCount; i++) {
-          let video = videos.items[i];
+		  for (let i = 0; i < vidCount; i++) {
+			  let video = videos.items[i];
 
-		  let homeFound = false;
-		  let awayFound = false;
-		  let highlightsFound = false;
+			  let homeFound = false;
+			  let awayFound = false;
+			  let highlightsFound = false;
+
+			  let teamNameAlts = {
+				  "Manchester United": ["Man Utd", "Man U"],
+				  "Manchester City": "Man City",
+				  "Tottenham": "Spurs",
+			  }
+
+			  let homeTerms = [match.homeTeam];
+			  if (teamNameAlts.hasOwnProperty(match.homeTeam)) { homeTerms.push(teamNameAlts[match.homeTeam]) };
+
+			  homeTerms = homeTerms.flat(Infinity);
+
+			  homeFound = homeTerms.some((term) => video.snippet.title.toUpperCase().includes(term.toUpperCase()));
 
 
-		  let homeTerms = [match.homeTeam];
-		  if (match.homeTeam === "Tottenham") {homeTerms.push("Spurs")}
-		  else if (match.homeTeam === "Manchester City") {homeTerms.push("Man City")}
-		  else if (match.homeTeam === "Manchester United") {homeTerms.push("Man Utd"); homeTerms.push("Man United")}
 
-		  homeFound = homeTerms.some((term) => video.snippet.title.includes(term));
+			  let awayTerms = [match.awayTeam];
+			  if (teamNameAlts.hasOwnProperty(match.awayTeam)) { awayTerms.push(teamNameAlts[match.awayTeam]) };
 
-		  let awayTerms = [match.awayTeam];
-		  if (match.awayTeam === "Tottenham") {awayTerms.push("Spurs")}
-		  else if (match.awayTeam === "Manchester City") {awayTerms.push("Man City")}
-		  else if (match.awayTeam === "Manchester United") {awayTerms.push("Man Utd"); awayTerms.push("Man United")}
+			  awayTerms = awayTerms.flat(Infinity);
 
-		  awayFound = awayTerms.some((term) => video.snippet.title.includes(term));
+			  awayFound = awayTerms.some((term) => video.snippet.title.toUpperCase().includes(term.toUpperCase()));
 
-		  highlightsFound = (video.snippet.title.includes("Highlights"));
 
-          
-          if (homeFound && awayFound && highlightsFound) {
-            link = `https://www.youtube.com/watch?v=${video.snippet.resourceId.videoId}`;
-            Matches.update(
-              {
-                highlights: link,
-              },
-              { where: { matchId: match.matchId } }
-            ).catch((err) => console.log(err));
-          }
-        }
+			  let title = video.snippet.description;
+
+			  let metaTerms = ["Highlights"];
+
+			  highlightsFound = metaTerms.every((term) => title.toUpperCase().includes(term.toUpperCase()));
+
+
+			  if (homeFound && awayFound && highlightsFound) {
+				  link = `https://www.youtube.com/watch?v=${video.snippet.resourceId.videoId}`;
+				  Matches.update(
+					  {
+						  highlights: link,
+					  },
+					  { where: { matchId: match.matchId } }
+				  ).catch((err) => console.log(err));
+			  }
+		  }
       }
     })
     .catch((error) => {
@@ -522,7 +534,8 @@ function serieA(matches) {
 
 			let teamNameAlts = {
 				"AS Roma" 			: "Roma",
-				"Juventus"			: "Juve"
+				"Juventus"			: "Juve",
+				"AC Milan"			: "Milan"
 			}
   
   
@@ -543,13 +556,13 @@ function serieA(matches) {
 			awayFound = awayTerms.some((term) => video.snippet.title.includes(term));
   
 
-			let title = video.snippet.description.toLowerCase();
+			let title = video.snippet.title.toUpperCase();
 
 			let metaTerms = ["HIGHLIGHTS", match.score];
 
-			highlightsFound = metaTerms.some((term) =>title.includes(term));
+			highlightsFound = metaTerms.every((term) =>title.includes(term));
 
-			highlightsFound = highlightsFound && !(title.includes("Extendend"))
+			highlightsFound = highlightsFound && !(title.includes("Extended"))
   
 			
 			if (homeFound && awayFound && highlightsFound) {
@@ -856,8 +869,10 @@ function bundesliga(matches) {
 			let highlightsFound = false;
 
 			let teamNameAlts = {
-				"Bayern München" : "Bayern Munich",
+				"Bayern München" 	: "Bayern Munich",
 				"Borussia Dortmund" : "Dortmund",
+				"FSV Mainz 05"		: "Mainz",
+				"FC St. Pauli"		: "St. Pauli"
 			}
   
 			let homeTerms = [match.homeTeam.toLowerCase()];
@@ -881,7 +896,7 @@ function bundesliga(matches) {
 
 			let metaTerms = ["highlights", match.score];
 
-			highlightsFound = metaTerms.some((term) =>title.includes(term));
+			highlightsFound = metaTerms.every((term) =>title.includes(term));
   
 			
 			if (homeFound && awayFound && highlightsFound) {
@@ -923,15 +938,19 @@ function ligue1(matches) {
 
 			let teamNameAlts = {
 				"Paris Saint Germain"	: ["Paris Saint-Germain", "PSG"],
-				"Marseille"				: "l'OM"
+				"Marseille"				: "l'OM",
+				"Lyon"					: ["Olympique Lyonnais", "l'OL", "OL"],
+				"Saint Etienne"			: "ASSE"
 			}
+
+			let title = video.snippet.description.toLowerCase();
   
 			let homeTerms = [match.homeTeam];
 			if (teamNameAlts.hasOwnProperty(match.homeTeam)) {homeTerms.push(teamNameAlts[match.homeTeam])};
 
 			homeTerms = homeTerms.flat(Infinity);
   
-			homeFound = homeTerms.some((term) => video.snippet.title.toLowerCase().includes(term.toLowerCase()));
+			homeFound = homeTerms.some((term) => title.toLowerCase().includes(term.toLowerCase()));
   
 
 
@@ -940,14 +959,11 @@ function ligue1(matches) {
 
 			awayTerms = awayTerms.flat(Infinity);
   
-			awayFound = awayTerms.some((term) => video.snippet.title.toLowerCase().includes(term.toLowerCase()));
-  
-
-			let title = video.snippet.description.toLowerCase();
+			awayFound = awayTerms.some((term) => title.toLowerCase().includes(term.toLowerCase()));
 
 			let metaTerms = [match.score];
 
-			highlightsFound = metaTerms.some((term) =>title.includes(term));
+			highlightsFound = metaTerms.every((term) =>title.includes(term));
   
 			
 			if (homeFound && awayFound && highlightsFound) {
@@ -1013,7 +1029,7 @@ function skySportsFootball(matches) { // SPL, WSL
 
 			let metaTerms = ["highlights", match.score];
 
-			highlightsFound = metaTerms.some((term) =>title.includes(term));
+			highlightsFound = metaTerms.every((term) =>title.includes(term));
   
 			
 			if (homeFound && awayFound && highlightsFound) {
@@ -1077,7 +1093,7 @@ function spl(matches) {
 
 			let metaTerms = [match.score];
 
-			highlightsFound = metaTerms.some((term) =>title.includes(term));
+			highlightsFound = metaTerms.every((term) =>title.includes(term));
   
 			
 			if (homeFound && awayFound && highlightsFound) {

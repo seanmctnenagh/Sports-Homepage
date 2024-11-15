@@ -1,4 +1,4 @@
-import { compClick } from "../utils";
+import { compClick } from "../Utils/Competition";
 
 function Competition({ match }) {
     return (

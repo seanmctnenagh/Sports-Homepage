@@ -1,4 +1,4 @@
-import { highlights } from "../utils";
+import { highlights } from "../Utils/Highlights";
 import Button from 'react-bootstrap/Button';
 
 function Highlights ({ match }) {

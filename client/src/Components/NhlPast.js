@@ -8,10 +8,10 @@ import TableRow from "./TableRow";
 
 const settings = {
 	isBreakoutPage  :   true,
-	includeBlanks   : 	true,
-	timeframe       :	"future",
+	includeBlanks   :   false,
+	timeframe       :   "past",
     singleComp      :   true,
-    comp            :   "NBA"
+    comp            :   "NHL"
 }
 
 let dates = {
@@ -21,7 +21,7 @@ let dates = {
 }
 
 
-const NBAFuture = () => {
+const NhlPast = () => {
     const [listOfMatches, setListOfMatches] = useState([]);
     const [listOfShowScores, setListOfShowScores] = useState([]);
 
@@ -32,9 +32,8 @@ const NBAFuture = () => {
 
     function getData() {
         axios.get(`http://${ip}:3001/matches`).then((response) => {
-            setListOfMatches(response.data.sort((a, b) => a.dateUnix - b.dateUnix));
+            setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));
         });
-
     }
 
     return (
@@ -54,11 +53,11 @@ const NBAFuture = () => {
 
                         return ( <TableRow match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} isBreakoutTitle={isBreakoutTitle} includeBlanks={settings["includeBlanks"]} /> );
 
-                    })}
+                        })}
                 </tbody>
             </Table>
         </div>
     );
 };
 
-export default NBAFuture;
+export default NhlPast;

@@ -5,10 +5,13 @@ import { useEffect } from "react";
 import NextWeek from "./Components/NextWeek";
 import Last3Days from "./Components/Last3Days";
 import NavBar from "./Components/NavBar";
-import HockeyFuture from "./Components/HockeyFuture";
-import HockeyPast from "./Components/HockeyPast";
+import NhlFuture from "./Components/NhlFuture";
+import NhlPast from "./Components/NhlPast";
 import NBAPast from "./Components/NBAPast";
 import NBAFuture from "./Components/NBAFuture";
+import NationsLeagueFuture from "./Components/NationsLeagueFuture";
+import Timeline from "./Components/Timeline";
+import NationsLeaguePast from "./Components/NationsLeaguePast";
 
 function App() {
 
@@ -27,32 +30,44 @@ function App() {
       
     zoomOutMobile();
 
+	const nextWeekSettings = {
+		isBreakoutPage  :   false,
+		includeBlanks   : 	true,
+		timeframe       :	"future",
+		singleComp      :   false,
+		comp            :   ""
+	}
+
+	const last3DaysSettings = {
+		isBreakoutPage  :   false,
+		includeBlanks   : 	false,
+		timeframe       :	"past",
+		singleComp      :   false,
+		comp            :   ""
+	}
+
 	return (
 		<div>
-			<head>
-				<title>Sports Homepage</title>
-			</head>
-
 			<Router>
 				<NavBar />
 				<Switch>
 					<Route exact path="/">
-						<NextWeek />
+						<NextWeek settings={nextWeekSettings}  />
 					</Route>
 					<Route exact path="/nextWeek">
-						<NextWeek />
+						<NextWeek settings={nextWeekSettings} />
 					</Route>
 					<Route exact path="/last3Days">
-						<Last3Days />
+						<Last3Days settings={last3DaysSettings} />
 					</Route>
 					<Route path="/highlights">
 						<button>Highlights</button>
 					</Route>
-					<Route path="/hockeyFuture">
-						<HockeyFuture />
+					<Route path="/NhlFuture">
+						<NhlFuture />
 					</Route>
-					<Route path="/hockeyPast">
-						<HockeyPast />
+					<Route path="/NhlPast">
+						<NhlPast />
 					</Route>
 					<Route path="/nbaPast">
 						<NBAPast/>
@@ -60,6 +75,18 @@ function App() {
 					<Route path="/nbaFuture">
 						<NBAFuture />
 					</Route>
+					<Route path="/nationsLeagueFuture">
+						<NationsLeagueFuture />
+					</Route>
+					<Route path="/nationsLeaguePast">
+						<NationsLeaguePast />
+					</Route>
+					<Route path="/timeline">
+						<Timeline navbarHeight={56} />
+					</Route>
+					{/* <Route path="/test">
+						<Test />
+					</Route> */}
 				</Switch>
 			</Router>
 		</div>

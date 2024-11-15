@@ -3,18 +3,18 @@ import { useEffect, useState } from "react";
 
 import Table from "react-bootstrap/Table";
 
-import TableRow from "./TableRow";
 import { competitionCheck, checkDates, ip } from "./Utils/Timeline";
+import TableRow from "./TableRow";
 
 const settings = {
-	isBreakoutPage  :   true,
-	includeBlanks   :   false,
-	timeframe       :   "past",
-    singleComp      :   true,
-    comp            :   "NBA"
+	isBreakoutPage: true,
+	includeBlanks: 	true,
+	timeframe:		"future",
+    singleComp:     true,
+    comp:           "NHL"
 }
 
-const NBAPast = () => {
+const NhlFuture = () => {
     const [listOfMatches, setListOfMatches] = useState([]);
     const [listOfShowScores, setListOfShowScores] = useState([]);
 
@@ -23,8 +23,10 @@ const NBAPast = () => {
         setInterval(getData, 30000);
     }, []); // Condition for GET request
 
-    function getData() {axios.get(`http://${ip}:3001/matches`).then((response) => {setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));});
-
+    function getData() {
+        axios.get(`http://${ip}:3001/matches`).then((response) => {
+            setListOfMatches(response.data.sort((a, b) => a.dateUnix - b.dateUnix));
+        });
     }
 
     return (
@@ -32,9 +34,10 @@ const NBAPast = () => {
             <Table responsive style={{ width: "100%" }}>
                 <tbody>
                     {listOfMatches.map((match, index) => {
-                        if (!checkDates(match, settings["timeframe"])) { return null }
 
-                        if ( settings["singleComp"]) { if ( !competitionCheck(match, settings["comp"], true) ){return null;} }
+                        if (!checkDates(match, settings["timeframe"])) { return null; }
+
+                        if ( settings["singleComp"] ) { if ( !competitionCheck(match, settings["comp"], true) ) { return null; } }
 
                         return ( <TableRow match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} includeBlanks={settings["includeBlanks"]} /> );
 
@@ -45,4 +48,4 @@ const NBAPast = () => {
     );
 };
 
-export default NBAPast;
+export default NhlFuture;

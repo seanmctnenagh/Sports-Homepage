@@ -48,7 +48,7 @@ function organiseData(data){
             // 42,     // Nebraska
             // 47,	    // Illinois
             60,     // Vanderbilt
-            63,     // Pittsburgh
+            // 63,     // Pittsburgh
             69,	    // Tennessee
             78,	    // Penn State
             // 83,	    // Missouri
@@ -67,9 +67,11 @@ function organiseData(data){
             131,	// Ole Miss
             136,    // BYU
             // 145,    // Navy
-            151,	// Iowa State
+            // 151,	// Iowa State
             174,    // Kansas State
             177,    // Army
+            180,    // Tulane
+            188,    // South Carolina
             190,    // SMU
             195,	// Texas
             198,	// Louisville
@@ -99,7 +101,9 @@ function organiseData(data){
         match.homeTeam = thisMatch.teams.home.name;
         match.awayTeam = thisMatch.teams.away.name;
         match.matchId = thisMatch.game.id;
-        match.endDate = match.dateUnix + 7200;
+        match.endDate = thisMatch.game.date.timestamp + 7200;
+
+        match.completed = 0;
 
         // if (thisMatch.game.status.short === "FT" || thisMatch.game.status.short === "AOT") {
         //     match.completed = true;
@@ -120,6 +124,7 @@ function organiseData(data){
                             date: match.date,
                             dateUnix: match.dateUnix,
                             completed: match.completed,
+                            endDate: match.endDate
                         },
                         {where: {matchId: match.matchId.toString()}}
                     ).then()

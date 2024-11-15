@@ -1,27 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
 import Table from "react-bootstrap/Table";
-
-import { competitionCheck, checkDates, checkBreakouts, ip } from "./Utils/Timeline";
+import { competitionCheck, checkDates, ip } from "./Utils/Timeline";
 import TableRow from "./TableRow";
 
 const settings = {
-	isBreakoutPage  :   true,
-	includeBlanks   : 	true,
-	timeframe       :	"future",
-    singleComp      :   true,
-    comp            :   "NBA"
+	isBreakoutPage: true,
+	includeBlanks: 	true,
+	timeframe:		"future",
+    singleComp:     true,
+    comp:           "Nations League"
 }
 
-let dates = {
-    "NHL"               : [],
-    "NBA"               : [],
-    "Nations League"    : []
-}
-
-
-const NBAFuture = () => {
+const NationsLeagueFuture = () => {
     const [listOfMatches, setListOfMatches] = useState([]);
     const [listOfShowScores, setListOfShowScores] = useState([]);
 
@@ -34,7 +25,6 @@ const NBAFuture = () => {
         axios.get(`http://${ip}:3001/matches`).then((response) => {
             setListOfMatches(response.data.sort((a, b) => a.dateUnix - b.dateUnix));
         });
-
     }
 
     return (
@@ -42,17 +32,11 @@ const NBAFuture = () => {
             <Table responsive style={{ width: "100%" }}>
                 <tbody>
                     {listOfMatches.map((match, index) => {
-
                         if (!checkDates(match, settings["timeframe"])) { return null }
 
                         if ( settings["singleComp"]) { if ( !competitionCheck(match, settings["comp"], true) ){return null;} }
 
-                        let isBreakoutTitle = false;
-                        if ( !settings["isBreakoutPage"] ){
-                            [match, dates, isBreakoutTitle] = checkBreakouts(match, dates);
-                        }
-
-                        return ( <TableRow match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} isBreakoutTitle={isBreakoutTitle} includeBlanks={settings["includeBlanks"]} /> );
+                        return ( <TableRow match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} includeBlanks={settings["includeBlanks"]} /> );
 
                     })}
                 </tbody>
@@ -61,4 +45,4 @@ const NBAFuture = () => {
     );
 };
 
-export default NBAFuture;
+export default NationsLeagueFuture;

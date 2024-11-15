@@ -1,9 +1,11 @@
-import { tv } from '../utils.js';
+import { tv } from "../Utils/DateTime";
 
-function Time({ match, date, redirect, breakout=false }) {
-    if (breakout) {
+function Time({ match, isBreakoutPage }) {
+    let redirect = (page) => {match.redirect(page)};
+    let date = new Date(match.date);
+    if (isBreakoutPage) {
         return (
-            <td className={match.competition} onClick={() => tv(match, true)}>
+            <td className={match.competition} onClick={() => tv(match, isBreakoutPage)}>
                 {(match.competition === "BLANK") ?
                     null : (
                         <>
@@ -14,7 +16,7 @@ function Time({ match, date, redirect, breakout=false }) {
         )
     }
     return (
-        <td className={match.competition} onClick={() => { if (tv(match, false)) { redirect(match.sport); } }}>
+        <td className={match.competition} onClick={() => { if (tv(match, isBreakoutPage)) { redirect(match.sport); } }}>
             {(match.competition === "BLANK") ?
                 null : (
                     <>

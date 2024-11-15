@@ -6,9 +6,13 @@ tr {
   border-color: black !important;
 }
 
-td {
+tbody {
   font-weight: bold;
   opacity: 0.8 !important;
+}
+
+td {
+  vertical-align: middle;
 }
 
 .live {
@@ -143,7 +147,7 @@ td {
 }
 
 .Friendly {
-  background-color: pink !important;
+  background-color: grey !important;
 }
 
 .NBA { 

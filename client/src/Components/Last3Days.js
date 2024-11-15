@@ -1,112 +1,59 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-
-import { Redirect } from 'react-router-dom';
-
+import axios from "axios";
 import Table from "react-bootstrap/Table";
+import { checkDates, checkBreakouts, competitionCheck, redirectJSX, ip, redirect } from "./Utils/Timeline";
+import TableRow from "./TableRow";
 
-import { teamOrder, versusSymbol, checkDates, checkBreakouts, ip } from "./utils";
-
-import Competition from "./TableElements/Competition";
-import Title from "./TableElements/Title";
-import DayDate from "./TableElements/DayDate";
-import Time from "./TableElements/Time";
-import Score from "./TableElements/Score";
-import Highlights from "./TableElements/Highlights";
-import RecapStream from "./TableElements/RecapStream";
-
-
-const Last3Days = () => {
+const Last3Days = ({ settings }) => {
 	const [listOfMatches, setListOfMatches] = useState([]);
 	const [listOfShowScores, setListOfShowScores] = useState([]);
 	const [hockeyRedirect, setHockeyRedirect] = useState(() => false);
 	const [nbaRedirect, setNbaRedirect] = useState(() => false);
+	const [nationsLeagueRedirect, setNationsLeagueRedirect] = useState(() => false);
 
 	useEffect(() => {
-		getData();
-		setInterval(getData, 30000);
-	}, []); // Condition for GET request
+        getData();
+        setInterval(getData, 30000);
+    }, []); // Condition for GET request
 
-	function getData() {
+    function getData() {
         axios.get(`http://${ip}:3001/matches`).then((response) => {
-			setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));
-			// setListOfShowScores(initializeArrayWithValues(0, response.length));
-		});
+            setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));
+        });
 
+    }	
+
+	let dates = {
+		"NHL"               : [],
+		"NBA"               : [],
+		"Nations League"    : []
 	}
-
-	function redirect(sport) {
-		switch (sport) {
-			case "Hockey":
-				setHockeyRedirect(true);
-				break;
-			case "Basketball":
-				setNbaRedirect(true);
-				break;
-			default:
-				break;
-		}
-	}
-
-	let nhlDates = [];
-	let nbaDates = [];
 
 	return (
-		<div className="Last3Days">
+		<div>
 			<Table responsive style={{ width: "100%" }}>
 				<tbody>
 					{listOfMatches.map((match, index) => {
-						let date = new Date(match.date);
 
-                        if (!checkDates(match, "past")) { return null }
+                        if (!checkDates(match, settings["timeframe"])) { return null; }
+						
+						if ( settings["singleComp"]) { if ( !competitionCheck(match, settings["comp"], true) ){return null;} }
 
-						let vs = versusSymbol(match);
+                        let isBreakoutTitle = false;
+                        if ( !settings["isBreakoutPage"] ){
+                            [match, dates, isBreakoutTitle] = checkBreakouts(match, dates);
+                            if ( match == null ) { 
+                                return null; 
+                            }
+                        }
 
-						let blank = false;
+                        match.redirect = (page) => {redirect(page, setHockeyRedirect, setNbaRedirect, setNationsLeagueRedirect)};
 
-						[match, nbaDates, nhlDates, blank] = checkBreakouts(match, date, nbaDates, nhlDates);
-
-                        if ( match == null || blank ) { return null; }
-
-						let [team1, team2] = teamOrder(match);
-
-
-
-						return (
-							<tr key={match.matchId}>
-                                {/*        Competition        */}
-                                <Competition match={match} />
-
-                                
-                                {/*        Team vs Team        */}
-                                <Title match={match} team1={team1} team2={team2} vs={vs} redirect={redirect} />
-
-
-                                {/*        Date & Day        */}
-                                <DayDate match={match} date={date} redirect={redirect} />
-
-
-                                {/*        Time        */}
-                                <Time match={match} date={date} redirect={redirect} />
-
-
-                                {/*        Score        */}
-                                <Score match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} />
-
-
-                                {/*        Highlights        */}
-                                <Highlights match={match} />
-
-
-                                {/*        ESPN Recap / Stream        */}
-                                <RecapStream match={match} />
-							</tr>
-						);
+						return ( <TableRow match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} isBreakoutTitle={isBreakoutTitle} includeBlanks={settings["includeBlanks"]} settings={settings} /> );
 					})}
 				</tbody>
 			</Table>
-			{hockeyRedirect ? (<Redirect push to="/hockeyPast" />) : null}
-			{nbaRedirect ? (<Redirect push to="/nbaPast" />) : null}
+            {redirectJSX(settings, hockeyRedirect, nbaRedirect, nationsLeagueRedirect)}
 		</div>
 	);
 };

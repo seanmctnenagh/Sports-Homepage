@@ -1,13 +1,13 @@
-import { espnRecap, liveCheck, stream } from "../utils"
+import { espnRecap, streamCheck, stream } from '../Utils/RecapStream';
 
 function RecapStream ({ match }) {
     return (
         <td className={match.competition}>
-            { (match.score != null) 
-            ? <i onClick={() => { espnRecap(match) }} class="bi bi-newspaper" style={{ fontSize: "1.5rem" }}></i> 
-            : ((liveCheck(match) && ["NHL", "NBA", "NFL"].includes(match.competition)) 
-                ? <i onClick={() => { stream(match) }} class="bi bi-tv" style={{ fontSize: "1.5rem" }}></i>
-                : null)}
+            {(match.score != null) 
+            ? <i onClick={() => { espnRecap(match) }} className="bi bi-newspaper" style={{ fontSize: "1.5rem" }}></i> 
+            : (streamCheck(match) 
+            ? <i onClick={() => { stream(match) }} className="bi bi-tv" style={{ fontSize: "1.5rem" }}></i>
+            : null) }
         </td>
     )
 }

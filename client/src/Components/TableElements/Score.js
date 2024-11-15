@@ -1,4 +1,4 @@
-import { showScore } from '../utils';
+import { showScore } from '../Utils/Score';
 import Button from 'react-bootstrap/Button';
 
 function Score ({ match, index, listOfShowScores, setListOfShowScores}) {

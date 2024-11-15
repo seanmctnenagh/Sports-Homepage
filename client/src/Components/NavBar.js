@@ -7,9 +7,13 @@ import Navbar from "react-bootstrap/Navbar";
 
 const NavBar = () => {
   return (
-    <Navbar expand="sm" className="bg-success">
+    <Navbar expand="sm" className="bg-success" sticky="top">
       <Container>
         <Nav className="me-auto">
+          {/* <Nav.Link as={Link} to="/timeline">
+            <b>Timeline</b>
+          </Nav.Link> */}
+
           <Nav.Link as={Link} to="/nextWeek">
             <b>Next Week</b>
           </Nav.Link>
@@ -17,12 +21,12 @@ const NavBar = () => {
             <b>Last 3 Days</b>
           </Nav.Link>
           
-          <Nav.Link as={Link} to="/hockeyPast">
-            <b>Hockey Past</b>
+          <Nav.Link as={Link} to="/NhlPast">
+            <b>NHL Past</b>
           </Nav.Link>
           
-          <Nav.Link as={Link} to="/hockeyFuture">
-            <b>Hockey Future</b>
+          <Nav.Link as={Link} to="/NhlFuture">
+            <b>NHL Future</b>
           </Nav.Link>
           
           <Nav.Link as={Link} to="/nbaPast">
