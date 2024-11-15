@@ -9,7 +9,7 @@ import { competitionCheck, checkDates, ip } from "./Utils/Timeline";
 const settings = {
 	isBreakoutPage  :   true,
 	includeBlanks   :   false,
-	timeframe       :   "past",
+	timeframe       :   "Past",
     singleComp      :   true,
     comp            :   "NBA"
 }

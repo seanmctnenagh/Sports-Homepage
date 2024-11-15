@@ -14,7 +14,7 @@ import { Redirect } from 'react-router-dom';
 
 export const checkDates = (match, timeframe) => {
 
-    if (timeframe === "future"){
+    if (timeframe === "Future"){
         let date = new Date(match.endDate * 1000);
         let today = new Date(Date.now());
         // today.setHours(0, 0, 0, 0);
@@ -30,7 +30,7 @@ export const checkDates = (match, timeframe) => {
 
         return true;
     }
-    else if (timeframe === "past"){
+    else if (timeframe === "Past"){
         let date = new Date(match.dateUnix * 1000);
         let today = new Date(Date.now());
         // today.setHours(4, 0, 0, 0);
@@ -303,11 +303,11 @@ export const checkBreakouts = (match, dates) => {
 
 
 
-export const redirectJSX = (settings, hockeyRedirect, nbaRedirect, nationsLeagueRedirect) => {
-    if (settings["isBreakoutPage"]) { return null;}
-    let hockey = `/hockey${settings["timeframe"]}`
-    let nba = `/nba${settings["timeframe"]}`
-    let nationsLeague = `/nationsLeague${settings["timeframe"]}`
+export const redirectJSX = (timeframe, isBreakoutPage, hockeyRedirect, nbaRedirect, nationsLeagueRedirect) => {
+    if (isBreakoutPage) { return null;}
+    let hockey = `/nhl${timeframe}`
+    let nba = `/nba${timeframe}`
+    let nationsLeague = `/nationsLeague${timeframe}`
     return (
         <>
             { hockeyRedirect ? (<Redirect push to={hockey}/>) : null }
@@ -333,9 +333,9 @@ export const redirect = (sport, setHockeyRedirect, setNbaRedirect, setNationsLea
     }
 }
 
-export const getData = ( settings, setListOfMatches) => {
+export const getData = ( timeframe, setListOfMatches) => {
     axios.get(`http://${ip}:3001/matches`).then((response) => {
-        if ( settings["timeframe"] === "past" ){
+        if ( timeframe === "Past" ){
             setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));
         }
         else {

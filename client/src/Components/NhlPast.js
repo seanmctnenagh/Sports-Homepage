@@ -9,7 +9,7 @@ import TableRow from "./TableRow";
 const settings = {
 	isBreakoutPage  :   true,
 	includeBlanks   :   false,
-	timeframe       :   "past",
+	timeframe       :   "Past",
     singleComp      :   true,
     comp            :   "NHL"
 }

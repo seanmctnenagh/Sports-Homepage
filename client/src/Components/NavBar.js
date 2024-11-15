@@ -10,9 +10,9 @@ const NavBar = () => {
     <Navbar expand="sm" className="bg-success" sticky="top">
       <Container>
         <Nav className="me-auto">
-          {/* <Nav.Link as={Link} to="/timeline">
+          <Nav.Link as={Link} to="/">
             <b>Timeline</b>
-          </Nav.Link> */}
+          </Nav.Link>
 
           <Nav.Link as={Link} to="/nextWeek">
             <b>Next Week</b>

@@ -7,8 +7,7 @@ import Highlights from './TableElements/Highlights';
 import RecapStream from './TableElements/RecapStream';
 
 
-const TableRow = ({ match, index, settings, isBreakoutTitle, isBreakoutPage, listOfShowScores, setListOfShowScores, includeBlanks }) => {
-    console.log("TableRow")
+const TableRow = ({ match, index, timeframe, isBreakoutTitle, isBreakoutPage, listOfShowScores, setListOfShowScores, includeBlanks }) => {
     let isBlank = (match.competition === "BLANK");
     if ( isBlank && (!includeBlanks)) { return (null) }
     return (
@@ -18,7 +17,7 @@ const TableRow = ({ match, index, settings, isBreakoutTitle, isBreakoutPage, lis
 
                                 
             {/*        Team vs Team        */}
-            <Title match={match} settings={settings} isBreakoutTitle={isBreakoutTitle} isBlank={isBlank} />
+            <Title match={match} timeframe={timeframe} isBreakoutTitle={isBreakoutTitle} isBlank={isBlank} />
 
 
             {/*        Date & Day        */}

@@ -10,7 +10,7 @@ import NhlPast from "./Components/NhlPast";
 import NBAPast from "./Components/NBAPast";
 import NBAFuture from "./Components/NBAFuture";
 import NationsLeagueFuture from "./Components/NationsLeagueFuture";
-import Timeline from "./Components/Timeline";
+// import Timeline from "./Components/Timeline";
 import NationsLeaguePast from "./Components/NationsLeaguePast";
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
 	const nextWeekSettings = {
 		isBreakoutPage  :   false,
 		includeBlanks   : 	true,
-		timeframe       :	"future",
+		timeframe       :	"Future",
 		singleComp      :   false,
 		comp            :   ""
 	}
@@ -41,7 +41,7 @@ function App() {
 	const last3DaysSettings = {
 		isBreakoutPage  :   false,
 		includeBlanks   : 	false,
-		timeframe       :	"past",
+		timeframe       :	"Past",
 		singleComp      :   false,
 		comp            :   ""
 	}
@@ -51,17 +51,15 @@ function App() {
 			<Router>
 				<NavBar />
 				<Switch>
-					<Route exact path="/">
-						<NextWeek settings={nextWeekSettings}  />
-					</Route>
+					{/* Next Week */}
+					{/* <Route exact path="/">
+						<Timeline settings={nextWeekSettings}  /> 
+					</Route> */}
 					<Route exact path="/nextWeek">
 						<NextWeek settings={nextWeekSettings} />
 					</Route>
 					<Route exact path="/last3Days">
 						<Last3Days settings={last3DaysSettings} />
-					</Route>
-					<Route path="/highlights">
-						<button>Highlights</button>
 					</Route>
 					<Route path="/NhlFuture">
 						<NhlFuture />
@@ -81,11 +79,33 @@ function App() {
 					<Route path="/nationsLeaguePast">
 						<NationsLeaguePast />
 					</Route>
-					<Route path="/timeline">
-						<Timeline navbarHeight={56} />
+					
+					{/* <Route exact path="/">
+						<Timeline isBreakoutPage={false} includeBlanks={true} timeframe={"Future"} singleComp={false} comp={""} /> 
 					</Route>
-					{/* <Route path="/test">
-						<Test />
+					<Route exact path="/nextWeek">
+						<Timeline isBreakoutPage={false} includeBlanks={true} timeframe={"Future"} singleComp={false} comp={""} /> 
+					</Route>
+					<Route exact path="/last3Days">
+						<Timeline isBreakoutPage={false} includeBlanks={false} timeframe={"Past"} singleComp={false} comp={""} /> 
+					</Route>
+					<Route path="/NhlFuture">
+						<Timeline isBreakoutPage={true} includeBlanks={true} timeframe={"Future"} singleComp={true} comp={"NHL"} /> 
+					</Route>
+					<Route path="/NhlPast">
+						<Timeline isBreakoutPage={true} includeBlanks={false} timeframe={"Past"} singleComp={true} comp={"NHL"} /> 
+					</Route>
+					<Route path="/nbaFuture">
+						<Timeline isBreakoutPage={true} includeBlanks={true} timeframe={"Future"} singleComp={true} comp={"NBA"} /> 
+					</Route>
+					<Route path="/nbaPast">
+						<Timeline isBreakoutPage={true} includeBlanks={false} timeframe={"Past"} singleComp={true} comp={"NBA"} /> 
+					</Route>
+					<Route path="/nationsLeagueFuture">
+						<Timeline isBreakoutPage={true} includeBlanks={true} timeframe={"Future"} singleComp={true} comp={"Nations League"} /> 
+					</Route>
+					<Route path="/nationsLeaguePast">
+						<Timeline isBreakoutPage={true} includeBlanks={false} timeframe={"Past"} singleComp={true} comp={"Nations League"} /> 
 					</Route> */}
 				</Switch>
 			</Router>

@@ -78,7 +78,7 @@
 
 //                         let date = new Date(match.date);
 
-//                         // if (!checkDates(match, "future") && !checkDates(match, "past")) { return null }
+//                         // if (!checkDates(match, "Future") && !checkDates(match, "Past")) { return null }
 
 //                         if (!checkDatesOverall(match)) { return null; }
 
