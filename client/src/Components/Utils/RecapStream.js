@@ -46,14 +46,14 @@ export const liveCheck = (match, offset = 0) => {
     let start = new Date(match.date);
     let now = new Date(Date.now());
     let end = new Date(match.endDate * 1000);
+    
+    if (now > end) {
+        return false;
+    }
 
     now.setMinutes(now.getMinutes() + offset);
 
     if (now < start) {
-        return false;
-    }
-    
-    if (now > end) {
         return false;
     }
 

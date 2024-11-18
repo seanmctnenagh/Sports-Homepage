@@ -2,16 +2,18 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useEffect } from "react";
 
-import NextWeek from "./Components/NextWeek";
-import Last3Days from "./Components/Last3Days";
+import NextWeek from "./Components/Breakouts/NextWeek";
+import Last3Days from "./Components/Breakouts/Last3Days";
 import NavBar from "./Components/NavBar";
-import NhlFuture from "./Components/NhlFuture";
-import NhlPast from "./Components/NhlPast";
-import NBAPast from "./Components/NBAPast";
-import NBAFuture from "./Components/NBAFuture";
-import NationsLeagueFuture from "./Components/NationsLeagueFuture";
+import NhlFuture from "./Components/Breakouts/NhlFuture";
+import NhlPast from "./Components/Breakouts/NhlPast";
+import NBAPast from "./Components/Breakouts/NBAPast";
+import NBAFuture from "./Components/Breakouts/NBAFuture";
+import NationsLeagueFuture from "./Components/Breakouts/NationsLeagueFuture";
 // import Timeline from "./Components/Timeline";
-import NationsLeaguePast from "./Components/NationsLeaguePast";
+import NationsLeaguePast from "./Components/Breakouts/NationsLeaguePast";
+import NCAAFuture from "./Components/Breakouts/NcaaFuture";
+import NCAAPast from "./Components/Breakouts/NcaaPast";
 
 function App() {
 
@@ -30,36 +32,21 @@ function App() {
       
     zoomOutMobile();
 
-	const nextWeekSettings = {
-		isBreakoutPage  :   false,
-		includeBlanks   : 	true,
-		timeframe       :	"Future",
-		singleComp      :   false,
-		comp            :   ""
-	}
-
-	const last3DaysSettings = {
-		isBreakoutPage  :   false,
-		includeBlanks   : 	false,
-		timeframe       :	"Past",
-		singleComp      :   false,
-		comp            :   ""
-	}
-
 	return (
 		<div>
 			<Router>
 				<NavBar />
 				<Switch>
 					{/* Next Week */}
-					{/* <Route exact path="/">
-						<Timeline settings={nextWeekSettings}  /> 
-					</Route> */}
+					<Route exact path="/">
+						{/* <Timeline settings={nextWeekSettings}  />  */}
+						<NextWeek />
+					</Route>
 					<Route exact path="/nextWeek">
-						<NextWeek settings={nextWeekSettings} />
+						<NextWeek />
 					</Route>
 					<Route exact path="/last3Days">
-						<Last3Days settings={last3DaysSettings} />
+						<Last3Days />
 					</Route>
 					<Route path="/NhlFuture">
 						<NhlFuture />
@@ -78,6 +65,12 @@ function App() {
 					</Route>
 					<Route path="/nationsLeaguePast">
 						<NationsLeaguePast />
+					</Route>
+					<Route path="/NcaaFuture">
+						<NCAAFuture />
+					</Route>
+					<Route path="/NcaaPast">
+						<NCAAPast />
 					</Route>
 					
 					{/* <Route exact path="/">

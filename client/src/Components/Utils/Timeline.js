@@ -12,35 +12,35 @@ import { Redirect } from 'react-router-dom';
 //     return false;
 // }
 
-export const checkDates = (match, timeframe) => {
+export const checkDates = (match, timeframe, numDays) => {
+
+    if ( match.endDate == null) { return false;}
 
     if (timeframe === "Future"){
         let date = new Date(match.endDate * 1000);
-        let today = new Date(Date.now());
+        let now = new Date(Date.now());
         // today.setHours(0, 0, 0, 0);
 
-        if (date - today < 0) {
+        if (date < now) {
             return false;
         }
 
-        let days = 8;
-        if (date - today > days * 86400000 + 10800000) {
+        if (date - now > numDays * 86400000 + 10800000) {
             return false;
         }
 
         return true;
     }
     else if (timeframe === "Past"){
-        let date = new Date(match.dateUnix * 1000);
-        let today = new Date(Date.now());
+        let date = new Date(match.endDate * 1000);
+        let now = new Date(Date.now());
         // today.setHours(4, 0, 0, 0);
 
-        if (date > today) { 
+        if (date > now) { 
             return false;
         }
 
-        let days = 7;
-        if (date - today < -(days * 86400000)) { // >'days' days ago check
+        if (date - now < -(numDays * 86400000)) { // >'days' days ago check
             return false;
         }
 
@@ -333,7 +333,7 @@ export const redirect = (sport, setHockeyRedirect, setNbaRedirect, setNationsLea
     }
 }
 
-export const getData = ( timeframe, setListOfMatches) => {
+export const getData = ( timeframe, setListOfMatches ) => {
     axios.get(`http://${ip}:3001/matches`).then((response) => {
         if ( timeframe === "Past" ){
             setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));

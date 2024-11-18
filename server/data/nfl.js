@@ -101,7 +101,7 @@ function organiseData(data){
         match.homeTeam = thisMatch.teams.home.name;
         match.awayTeam = thisMatch.teams.away.name;
         match.matchId = thisMatch.game.id;
-        match.endDate = thisMatch.game.date.timestamp + 7200;
+        match.endDate = thisMatch.game.date.timestamp + 10800;
 
         match.completed = 0;
 

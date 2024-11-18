@@ -121,15 +121,15 @@ function organiseData(data){
         match.matchId = thisMatch.id;
         match.highlights = "";
         
-        if (thisMatch.status.short == "NS"){
-            match.completed = false;
-        }
-        else if (thisMatch.status.short == "CANC"){
-            continue;
-        }
-        else {
-            match.completed = true;
-        }
+        // if (thisMatch.status.short == "NS"){
+        //     match.completed = false;
+        // }
+        // else if (thisMatch.status.short == "CANC"){
+        //     continue;
+        // }
+        // else {
+        //     match.completed = true;
+        // }
         match.score = null;
         match.minute = null;
 
@@ -154,7 +154,7 @@ function organiseData(data){
                             awayTeam: match.awayTeam,
                             date: match.date,
                             dateUnix: match.dateUnix,
-                            completed: match.completed,
+                            // completed: match.completed,
                             score: match.score,
                             minute: match.minute,
                             highlights: match.highlights,

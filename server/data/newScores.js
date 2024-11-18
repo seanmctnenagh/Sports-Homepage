@@ -212,9 +212,9 @@ function updateSoccer(match) {
 			completed = 1;
 			score = `${match.goals.home}-${match.goals.away} (${match.score.penalty.home}-${match.score.penalty.away})`;
 			minute = match.fixture.status.short;
-		} else if (match.fixture.status.short == "PST") {
+		} else if (["PST", "ABD", "CANC"].includes(match.fixture.status.short)) {
 			completed = 1;
-			score = "Postponed";
+			score = match.fixture.status.long;
 			minute = null;
 		} else {
 			minute = match.fixture.status.timer;

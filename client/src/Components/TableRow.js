@@ -21,11 +21,11 @@ const TableRow = ({ match, index, timeframe, isBreakoutTitle, isBreakoutPage, li
 
 
             {/*        Date & Day        */}
-            <DayDate match={match} isBreakoutPage={isBreakoutPage} />
+            <DayDate match={match} timeframe={timeframe} isBreakoutTitle={isBreakoutTitle} isBlank={isBlank} />
 
 
             {/*        Time        */}
-            <Time match={match} isBreakoutPage={isBreakoutPage} />
+            <Time match={match} timeframe={timeframe} isBreakoutTitle={isBreakoutTitle} isBlank={isBlank} />
 
 
             {/*        Score        */}
@@ -37,7 +37,7 @@ const TableRow = ({ match, index, timeframe, isBreakoutTitle, isBreakoutPage, li
 
 
             {/*        ESPN Recap / Stream        */}
-            <RecapStream match={match} />
+            <RecapStream match={match} isBreakoutTitle={isBreakoutTitle} />
         </tr>
     )
 };

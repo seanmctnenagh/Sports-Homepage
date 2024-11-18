@@ -8,11 +8,12 @@ import Navbar from "react-bootstrap/Navbar";
 const NavBar = () => {
   return (
     <Navbar expand="sm" className="bg-success" sticky="top">
+      {/* <h1 style={{marginLeft: 10, color: "white"}}>Time</h1> */}
       <Container>
         <Nav className="me-auto">
-          <Nav.Link as={Link} to="/">
+          {/* <Nav.Link as={Link} to="/">
             <b>Timeline</b>
-          </Nav.Link>
+          </Nav.Link> */}
 
           <Nav.Link as={Link} to="/nextWeek">
             <b>Next Week</b>

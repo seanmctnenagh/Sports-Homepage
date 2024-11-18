@@ -1,6 +1,9 @@
 import { espnRecap, streamCheck, stream } from '../Utils/RecapStream';
 
-function RecapStream ({ match }) {
+function RecapStream ({ match, isBreakoutTitle }) {
+    if ( isBreakoutTitle ) {
+        return <td className={match.competition}></td>
+    }
     return (
         <td className={match.competition}>
             {(match.score != null) 
