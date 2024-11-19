@@ -3,7 +3,7 @@ import axios from "axios";
 import Table from "react-bootstrap/Table";
 import { checkBreakouts, ip } from "../Utils/Timeline";
 import TableRow from "../TableRow";
-import { FutureOverallSettings as settings } from "./Settings";
+import { FutureOverallSettings as settings } from "../Settings";
 
 const NextWeek = () => {
     const [listOfMatches, setListOfMatches] = useState([]);

@@ -6,8 +6,9 @@ function DayDate({ match, timeframe, isBreakoutTitle, isBlank }) {
     let date = new Date(match.date);
 
     if ( isBlank ){
-        return (<></>);
+        return (<td className={match.competition}></td>);
     }
+    
     if ( isBreakoutTitle ) {
         let to = `/${match.competition}${timeframe}`.replace(" ","")
         return (

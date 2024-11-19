@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { checkBreakouts, ip } from "../Utils/Timeline";
 import TableRow from "../TableRow";
-import { NhlFutureSettings as settings } from "./Settings";
+import { FutureNhlSettings as settings } from "./Settings";
 
 const NhlFuture = () => {
     const [listOfMatches, setListOfMatches] = useState([]);

@@ -2,18 +2,9 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useEffect } from "react";
 
-import NextWeek from "./Components/Breakouts/NextWeek";
-import Last3Days from "./Components/Breakouts/Last3Days";
 import NavBar from "./Components/NavBar";
-import NhlFuture from "./Components/Breakouts/NhlFuture";
-import NhlPast from "./Components/Breakouts/NhlPast";
-import NBAPast from "./Components/Breakouts/NBAPast";
-import NBAFuture from "./Components/Breakouts/NBAFuture";
-import NationsLeagueFuture from "./Components/Breakouts/NationsLeagueFuture";
-// import Timeline from "./Components/Timeline";
-import NationsLeaguePast from "./Components/Breakouts/NationsLeaguePast";
-import NCAAFuture from "./Components/Breakouts/NcaaFuture";
-import NCAAPast from "./Components/Breakouts/NcaaPast";
+import Timeline from "./Components/Timeline";
+import { breakoutSettings as settings } from "./Components/Settings";
 
 function App() {
 
@@ -23,56 +14,69 @@ function App() {
 
 	function zoomOutMobile() {
 		var viewport = document.querySelector('meta[name="viewport"]');
-		
-		if ( viewport ) {
+
+		if (viewport) {
 			viewport.content = "initial-scale=0.1";
-			viewport.content = "width=800";
+			viewport.content = "width=600";
 		}
 	}
-      
-    zoomOutMobile();
+
+	zoomOutMobile();
 
 	return (
 		<div>
 			<Router>
 				<NavBar />
 				<Switch>
+
+					<Route exact path='/'>
+						<Timeline key={-1} settings={settings[0]} />
+					</Route>
+
+					{settings.map((page, index) => {
+						return (
+							<Route path={`/${page.url}`}>
+								<Timeline key={index} settings={page} />
+							</Route>
+						)
+					})};
+
+
 					{/* Next Week */}
-					<Route exact path="/">
-						{/* <Timeline settings={nextWeekSettings}  />  */}
-						<NextWeek />
+					{/* <Route exact path="/">
+						<Timeline key={0} settings={FutureOverallSettings}  /> 
 					</Route>
 					<Route exact path="/nextWeek">
-						<NextWeek />
+						<Timeline key={1} settings={FutureOverallSettings}  /> 
 					</Route>
 					<Route exact path="/last3Days">
-						<Last3Days />
+						<Timeline key={2} settings={PastOverallSettings}  />
 					</Route>
 					<Route path="/NhlFuture">
-						<NhlFuture />
+						<Timeline key={3} settings={FutureNhlSettings}  /> 
 					</Route>
 					<Route path="/NhlPast">
-						<NhlPast />
+						<Timeline key={4} settings={PastNhlSettings}  /> 
 					</Route>
 					<Route path="/nbaPast">
-						<NBAPast/>
+						<Timeline key={5} settings={PastNbaSettings} />
 					</Route>
 					<Route path="/nbaFuture">
-						<NBAFuture />
+						<Timeline key={6} settings={FutureNbaSettings} />
 					</Route>
 					<Route path="/nationsLeagueFuture">
-						<NationsLeagueFuture />
+						<Timeline key={7} settings={FutureNationsLeagueSettings}  /> 
 					</Route>
 					<Route path="/nationsLeaguePast">
-						<NationsLeaguePast />
+						<Timeline key={8} settings={PastNationsLeagueSettings}  /> 
 					</Route>
 					<Route path="/NcaaFuture">
-						<NCAAFuture />
+						<Timeline key={9} settings={FutureNcaaSettings}  /> 
 					</Route>
 					<Route path="/NcaaPast">
-						<NCAAPast />
-					</Route>
-					
+						<Timeline key={10} settings={PastNcaaSettings}  /> 
+					</Route> */}
+
 					{/* <Route exact path="/">
 						<Timeline isBreakoutPage={false} includeBlanks={true} timeframe={"Future"} singleComp={false} comp={""} /> 
 					</Route>

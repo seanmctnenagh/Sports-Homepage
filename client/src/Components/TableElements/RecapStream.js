@@ -10,7 +10,7 @@ function RecapStream ({ match, isBreakoutTitle }) {
             ? <i onClick={() => { espnRecap(match) }} className="bi bi-newspaper" style={{ fontSize: "1.5rem" }}></i> 
             : (streamCheck(match) 
             ? <i onClick={() => { stream(match) }} className="bi bi-tv" style={{ fontSize: "1.5rem" }}></i>
-            : null) }
+            : <></>) }
         </td>
     )
 }

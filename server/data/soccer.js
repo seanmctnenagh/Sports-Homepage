@@ -64,6 +64,11 @@ function organiseData(data) {
 			}
 		}
 
+		if ( thisMatch.league.id == 667 ) {
+			continue;
+		}
+
+
 
 		let match = { sport: "Soccer" };
 		match.dateUnix = thisMatch.fixture.timestamp;
@@ -182,7 +187,7 @@ function checkTeamIds(thisMatch) {
 		55, // Brentford
 		66, // Aston Villa
 		65, // Nottingham Forest
-		80, //Lyon
+		80, // Lyon
 		81, // Marseille
 		85, // PSG
 		91, // Monaco

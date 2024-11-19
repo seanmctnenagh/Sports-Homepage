@@ -15,6 +15,14 @@ td {
   vertical-align: middle;
 }
 
+.navbarDropdownA {
+  background-color: #dba503 !important;
+}
+
+.navbarDropdownB {
+  background-color: #c02f3e !important;
+}
+
 .live {
   animation: pulse 3s infinite;
 }

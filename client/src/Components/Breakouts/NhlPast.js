@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import { checkBreakouts, ip } from "../Utils/Timeline";
 import TableRow from "../TableRow";
-import { NhlPastSettings as settings } from "./Settings";
+import { PastNhlSettings as settings } from "./Settings";
 
 
 

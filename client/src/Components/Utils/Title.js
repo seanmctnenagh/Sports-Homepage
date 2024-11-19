@@ -133,3 +133,12 @@ export const teamOrder = (match, isBreakoutTitle) => {
     return [team1, team2]
 
 }
+
+
+/**
+     * @param {match} match 
+     * @returns bubble if match is live
+     */
+export const liveBubble = ( match ) => {
+    if ( liveCheck(match) ) { return ( <i className="bi bi-record-fill live"></i> )}
+}

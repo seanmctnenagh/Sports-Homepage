@@ -35,68 +35,6 @@ function getRugbyData() {
     
         date = nextDay;
     }
-    
-    // Ireland
-    // let year = new Date(Date.now()).getFullYear().toString();
-    // fetch('https://v1.rugby.api-sports.io/games?team=388&season='+year, { 
-    //     method: 'get', 
-    //     headers: new Headers({'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423'})
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     // console.log(data)
-    //     organiseData(data);
-    // })
-    // .catch(error => {
-    //     // Handle the error
-    //     console.log("Error" + error);
-    // });
-
-    // fetch('https://v1.rugby.api-sports.io/games?team=408&season='+year, { 
-    //     method: 'get', 
-    //     headers: new Headers({'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423'})
-    // })
-    // .then(response => response.json())
-    // .then(data => {
-    //     // console.log(data)
-    //     organiseData(data);
-    // })
-    // .catch(error => {
-    //     // Handle the error
-    //     console.log("Error" + error);
-    // });
-
-    // if(new Date(Date.now()).getMonth() == 11){
-    //     year = new Date(Date.now()).getFullYear() + 1;
-    //     year = year.toString();
-    //     fetch('https://v1.rugby.api-sports.io/games?team=388&season='+year.toString(), { 
-    //         method: 'get', 
-    //         headers: new Headers({'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423'})
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         // console.log(data)
-    //         organiseData(data);
-    //     })
-    //     .catch(error => {
-    //         // Handle the error
-    //         console.log("Error" + error);
-    //     });
-
-    //     fetch('https://v1.rugby.api-sports.io/games?team=408&season='+year.toString(), { 
-    //         method: 'get', 
-    //         headers: new Headers({'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423'})
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         // console.log(data)
-    //         organiseData(data);
-    //     })
-    //     .catch(error => {
-    //         // Handle the error
-    //         console.log("Error" + error);
-    //     });
-    // }
 }
 
 
@@ -121,15 +59,6 @@ function organiseData(data){
         match.matchId = thisMatch.id;
         match.highlights = "";
         
-        // if (thisMatch.status.short == "NS"){
-        //     match.completed = false;
-        // }
-        // else if (thisMatch.status.short == "CANC"){
-        //     continue;
-        // }
-        // else {
-        //     match.completed = true;
-        // }
         match.score = null;
         match.minute = null;
 
@@ -154,7 +83,6 @@ function organiseData(data){
                             awayTeam: match.awayTeam,
                             date: match.date,
                             dateUnix: match.dateUnix,
-                            // completed: match.completed,
                             score: match.score,
                             minute: match.minute,
                             highlights: match.highlights,

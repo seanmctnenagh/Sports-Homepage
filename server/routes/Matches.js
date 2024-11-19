@@ -8,25 +8,26 @@ router.get("/", async (req, res) => { // params: { comp: settings["comp"], timef
     let timeframe = req.query.timeframe ?? '';
     let numDays = req.query.numDays ?? '';
     let includeBlanks = req.query.includeBlanks ?? '';
-    let id = req.query.id ?? '';
 
     let now = new Date() / 1000;
     let daysAgo = now - 86400 * numDays;
     let daysAhead = now + 86400 * numDays;
     let order = 'DESC';
 
+    if ( includeBlanks && comp ) { comp = {[Op.or] : [comp, "BLANK"]}}
+
     var conditions = {
         competition : comp,
-        endDate     : { // For Past
-            [Op.between]: [daysAgo,now],
-        },
-        dateUnix    : { // For Future
+        // dateUnix     : { // For Past
+        //     [Op.between]: [daysAgo,now],
+        // },
+        endDate    : { // For Future
             [Op.between]: [now, daysAhead],
         }
     };
     if ( !comp ) { delete conditions.competition }
-    if ( timeframe === "Past" ) { delete conditions.dateUnix }
-    if ( timeframe === "Future" ) { delete conditions.endDate; order = 'ASC' }
+    if ( timeframe === "Past" ) { conditions.endDate = {[Op.between] : [daysAgo, now]} }//delete conditions.endDate }
+    if ( timeframe === "Future" ) { order = 'ASC' }//delete conditions.dateUnix}
 
     let listOfMatches;
     

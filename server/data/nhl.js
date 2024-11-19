@@ -16,12 +16,9 @@ function getNHLData() {
         })
             .then(response => response.json())
             .then(data => {
-                // Do something with the data
-                // "errorCode": 429 == Too many requests
                 organiseData(data);
             })
             .catch(error => {
-                // Handle the error
                 console.log("Error" + error);
             });
 
