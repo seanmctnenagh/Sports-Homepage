@@ -1,0 +1,116 @@
+.App {
+  text-align: center;
+}
+
+tbody {
+  font-weight: bold;
+  opacity: 0.8 !important;
+  font-size: 1rem;
+}
+
+td {
+  vertical-align: middle;
+}
+
+.navbarDropdownA {
+  background-color: #0B5ED7 !important;
+}
+
+.navbarDropdownB {
+  background-color: #c02f3e !important;
+}
+
+.live {
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% {
+      color: #FF7F90;
+  }
+
+  50% {
+      color: #cf142b;
+  }
+
+  100% {
+      color: #FF7F90;
+  }
+}
+
+.NCAA {
+  background-color: brown !important;
+  color: white !important
+}
+
+.AFL {
+  background-color: silver !important;
+}
+
+.URC {
+  background-color: #ff33cc !important;
+}
+
+.Baseball {
+  background-color: navy !important;
+  color: white !important;
+}
+
+.League {
+  background-color: #d5ff3d !important;
+  color: black !important;
+}
+
+.NHL, .Hockey {
+    background-color: black !important;
+    color: white !important;
+}
+
+.Friendly {
+  background-color: grey !important;
+}
+
+.NBA, .Basketball { 
+  background-color: purple !important;
+  color: white !important;
+}
+
+tr {
+  border-color: black !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+.BLANK { 
+  font-size:2.5rem;
+  height: 6rem;
+  vertical-align: middle;
+  /* background-color: black !important;
+  color: white !important; */
+}
+
+/* .Hockey {
+  background-color: rgb(250, 189, 75) !important;
+  color: black !important
+}
+
+.Basketball {
+  background-color: rgb(69, 221, 69) !important;
+  color: black !important
+} */
+
+.NFL {
+  background-color: rgb(255, 0, 21) !important;
+  color: white !important;
+}
+
+.F1 {
+  background-color: rgb(4, 175, 4) !important;
+}
+
+span { display:inline-block; }
+
+.btn-warning {
+  /* font-size: 0.7rem !important; */
+  font-weight: bold !important;
+}

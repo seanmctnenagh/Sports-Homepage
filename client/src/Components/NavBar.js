@@ -19,9 +19,9 @@ const NavBar = () => {
 		<Navbar expand="sm" className="bg-success" sticky="top">
 			<Container>
 				<Dropdown as={ButtonGroup}>
-					<Button as={Link} to="/overallFuture" variant="warning" >Future</Button>
+					<Button as={Link} to="/overallFuture" variant="primary" ><b>Future</b></Button>
 
-					<Dropdown.Toggle split variant="warning" className="navbarDropdownA" />
+					<Dropdown.Toggle split variant="primary" className="navbarDropdownA" />
 
 					<Dropdown.Menu>
 						{settings.map((page, index) => {
@@ -39,7 +39,7 @@ const NavBar = () => {
 				</Dropdown>
 
 				<Dropdown as={ButtonGroup}>
-					<Button as={Link} to="/overallPast" variant="danger">Past</Button>
+					<Button as={Link} to="/overallPast" variant="danger"><b>Past</b></Button>
 
 					<Dropdown.Toggle split variant="danger" className="navbarDropdownB" id="dropdown-split-basic" />
 

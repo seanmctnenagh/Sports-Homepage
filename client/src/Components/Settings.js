@@ -10,7 +10,7 @@ export const breakoutSettings = [ {
     },
     {
         isBreakoutPage  :   false,
-        includeBlanks   : 	false,
+        includeBlanks   : 	true,
         timeframe       :	"Past",
         singleComp      :   false,
         comp            :   "",
@@ -30,7 +30,7 @@ export const breakoutSettings = [ {
     },
     {
         isBreakoutPage  :   true,
-        includeBlanks   :   false,
+        includeBlanks   :   true,
         timeframe       :   "Past",
         singleComp      :   true,
         comp            :   "NHL",
@@ -50,7 +50,7 @@ export const breakoutSettings = [ {
     },
     {
         isBreakoutPage  :   true,
-        includeBlanks   :   false,
+        includeBlanks   :   true,
         timeframe       :   "Past",
         singleComp      :   true,
         comp            :   "NCAA",
@@ -70,7 +70,7 @@ export const breakoutSettings = [ {
     },
     {
         isBreakoutPage  :   true,
-        includeBlanks   :   false,
+        includeBlanks   :   true,
         timeframe       :   "Past",
         singleComp      :   true,
         comp            :   "NBA",
@@ -90,7 +90,7 @@ export const breakoutSettings = [ {
     },
     {
         isBreakoutPage  :   true,
-        includeBlanks   :   false,
+        includeBlanks   :   true,
         timeframe       :   "Past",
         singleComp      :   true,
         comp            :   "Nations League",
@@ -110,7 +110,7 @@ export const breakoutSettings = [ {
     },
     {
         isBreakoutPage  :   true,
-        includeBlanks   :   false,
+        includeBlanks   :   true,
         timeframe       :   "Past",
         singleComp      :   true,
         comp            :   "PL",
@@ -130,12 +130,52 @@ export const breakoutSettings = [ {
     },
     {
         isBreakoutPage  :   true,
-        includeBlanks   :   false,
+        includeBlanks   :   true,
         timeframe       :   "Past",
         singleComp      :   true,
         comp            :   "NFL",
         numDays         :   14,
         url             :   "NflPast",
+        navbar          :   true
+    },
+    {
+        isBreakoutPage  :   true,
+        includeBlanks   :   true,
+        timeframe       :   "Future",
+        singleComp      :   true,
+        comp            :   "CL",
+        numDays         :   7,
+        url             :   "ClFuture",
+        navbar          :   true
+    },
+    {
+        isBreakoutPage  :   true,
+        includeBlanks   :   true,
+        timeframe       :   "Past",
+        singleComp      :   true,
+        comp            :   "CL",
+        numDays         :   7,
+        url             :   "ClPast",
+        navbar          :   true
+    }  ,
+    {
+        isBreakoutPage  :   true,
+        includeBlanks   :   true,
+        timeframe       :   "Future",
+        singleComp      :   true,
+        comp            :   "F1",
+        numDays         :   7,
+        url             :   "F1Future",
+        navbar          :   true
+    },
+    {
+        isBreakoutPage  :   true,
+        includeBlanks   :   true,
+        timeframe       :   "Past",
+        singleComp      :   true,
+        comp            :   "F1",
+        numDays         :   7,
+        url             :   "F1Past",
         navbar          :   true
     }   
 ]
@@ -162,7 +202,7 @@ export const FutureOverallSettings = {
 
 export const PastNhlSettings = {
 	isBreakoutPage  :   true,
-	includeBlanks   :   false,
+	includeBlanks   :   true,
 	timeframe       :   "Past",
     singleComp      :   true,
     comp            :   "NHL",
@@ -180,7 +220,7 @@ export const FutureNhlSettings = {
 
 export const PastNcaaSettings = {
 	isBreakoutPage  :   true,
-	includeBlanks   :   false,
+	includeBlanks   :   true,
 	timeframe       :   "Past",
     singleComp      :   true,
     comp            :   "NCAA",
@@ -207,7 +247,7 @@ export const FutureNationsLeagueSettings = {
 
 export const PastNationsLeagueSettings = {
 	isBreakoutPage  :   true,
-	includeBlanks   :   false,
+	includeBlanks   :   true,
 	timeframe       :   "Past",
     singleComp      :   true,
     comp            :   "Nations League",
@@ -216,7 +256,7 @@ export const PastNationsLeagueSettings = {
 
 export const PastNbaSettings = {
 	isBreakoutPage  :   true,
-	includeBlanks   :   false,
+	includeBlanks   :   true,
 	timeframe       :   "Past",
     singleComp      :   true,
     comp            :   "NBA",

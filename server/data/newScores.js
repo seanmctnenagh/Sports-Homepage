@@ -34,6 +34,7 @@ function processMatches(matches) {
 	let aflList = [];
 	let rugbyList = [];
 	let nbaList = [];
+	let f1List = [];
 
 	for (let i = 0; i < count; i++) {
 		switch (matches[i].sport) {
@@ -58,6 +59,9 @@ function processMatches(matches) {
 			case "Basketball":
 				nbaList.push(matches[i]);
 				break;
+			// case "F1":
+			// 	f1List.push(matches[i]);
+			// 	break;
 		}
 	}
 
@@ -87,6 +91,10 @@ function processMatches(matches) {
 
 	if (nbaList.length) {
 		NBA(nbaList);
+	}
+
+	if (f1List.length) {
+		f1(f1List);
 	}
 }
 
@@ -144,6 +152,10 @@ function updateNfl(match) {
 		completed = 1;
 		score = `${match.scores.away.total}-${match.scores.home.total}`;
 		minute = match.game.status.short;
+	} else if (match.game.status.long.includes("OT")) {
+		completed = 1;
+		score = `${match.scores.away.total}-${match.scores.home.total}`;
+		minute = match.game.status.long;
 	} else {
 		minute = match.game.status.timer;
 	}
@@ -510,6 +522,50 @@ function updateNBA(match) {
 		},
 		{ where: { matchId: match.id } }
 	).catch((err) => console.log(`Error in scores - hockey(): ${err}`));
+}
+
+
+
+function f1(matches) {
+	console.log("Getting F1 Scores...");
+	let matchCount = matches.length;
+
+	for (let j = 0; j < matchCount; j++) {
+		let id = matches[j].dataValues.matchId;
+		let url = `https://v1.formula-1.api-sports.io/rankings/races?race=${id}`;
+		fetch(url, {
+			method: "get",
+			headers: new Headers({
+				"x-rapidapi-key": "90ff826b72e0b865ca8281b84d41c423",
+			}),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if(data.results != 0) {
+					updateF1(data);
+				}
+			});
+	}
+
+
+}
+
+function updateF1(race) {
+	let completed = true;
+	let drivers = race.response;
+	let first = drivers[0].driver.name;
+	let second = drivers[1].driver.name;
+	let third = drivers[2].driver.name;
+
+	let score = `1.${first}-2.${second}-3.${third}`;
+
+	Matches.update(
+		{
+			completed: completed,
+			score: score,
+		},
+		{ where: { matchId: race.parameters.race } }
+	).catch((err) => console.log(`Error in scores - f1(): ${err}`));
 }
 
 

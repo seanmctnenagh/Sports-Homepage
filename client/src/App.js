@@ -1,4 +1,6 @@
-import "./App.css";
+import "./Style/App.css";
+import "./Style/Soccer.css"
+import "./Style/Rugby.css"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useEffect } from "react";
 

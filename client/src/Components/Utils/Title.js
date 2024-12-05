@@ -30,44 +30,52 @@ export const liveCheck = (match, offset = 0) => {
  * @param {bool} isBreakoutTitle 
  */
 export const titleClick = (match, isBreakoutTitle) => {
+    let url = "";
     if (isBreakoutTitle) {
         return;
     }
     else if (match.competition === "NCAA"){
-        window.open(`https://www.google.com/search?q=${match.homeTeam} ${match.awayTeam} cfb`, "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=720, height=720, top=30")
+        url = `https://www.google.com/search?q=${match.homeTeam} ${match.awayTeam} cfb`
     }
     else if (match.competition !== "BLANK") {
-        window.open(`https://www.google.com/search?q=${match.homeTeam} ${match.awayTeam}`, "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=720, height=720, top=30")
+        url = `https://www.google.com/search?q=${match.homeTeam} ${match.awayTeam}`
     }
+    
+    url = url.replace("&", " and ");
+    window.open(url, "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=720, height=720, top=30")
 }
 
+/**
+ * @param {String} team 
+ * @returns {String} rank
+ */
 export const ncaaRanks = (team) => {
     let ranks = {
         "Oregon" : "1",
-        "Ohio State": "2",
-        "Texas": "3",
-        "Penn State": "4",
-        "Indiana": "5",
-        "BYU": "6",
-        "Tennessee": "7",
-        "Notre Dame": "8",
-        "Miami": "9",
-        "Alabama": "10",
-        "Ole Miss": "11",
-        "Georgia": "12",
-        "Boise State": "13",
-        "SMU": "14",
-        "Texas A&M": "15",
-        "Kansas State": "16",
-        "Colorado": "17",
-        "Washington State": "18",
-        "Louisville": "19",
-        "Clemson": "20",
-        "South Carolina": "21",
-        "LSU": "22",
-        "Missouri": "23",
+        "Texas": "2",
+        "Penn State": "3",
+        "Notre Dame": "4",
+        "Georgia": "5",
+        "Tennessee": "6",
+        "Ohio State": "7",
+        "SMU": "8",
+        "Indiana": "9",
+        "Boise State": "10",
+        "Alabama": "11",
+        "Arizona State": "12",
+        "South Carolina": "13",
+        "Miami": "14",
+        "Ole Miss": "15",
+        "Iowa State": "16",
+        "BYU": "17",
+        "Clemson": "18",
+        "UNLV": "19",
+        "Colorado": "20",
+        "Illinois": "21",
+        "Missouri": "22",
+        "Syracuse": "23",
         "Army": "24",
-        "Tulane": "25",
+        "Memphis": "25",
     }
 
     if (ranks.hasOwnProperty(team)){
@@ -94,16 +102,6 @@ export const versusSymbol = (match, isBreakoutTitle, isBlank) => {
     else if (match.competition !== "F1") {
         vs = "vs ";
     }
-
-    // if (["NFL", "NCAA"].includes(match.competition) || ((!isBreakoutTitle) && ["NBA", "NHL"].includes(match.competition))) {
-    //     vs = "@ ";
-    // } else if ((!isBreakoutTitle) && ["Nations League"].includes(match.competition)) {
-    //     vs = "vs "
-    // } else if ( ["BLANK", "NHL", "NBA", "Nations League"].includes(match.competition)) {
-    //     vs = "";
-    // } else if (match.competition !== "F1") {
-    //     vs = "vs ";
-    // }
 
     return vs;
 }

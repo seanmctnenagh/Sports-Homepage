@@ -1,22 +1,5 @@
 const { Matches } = require('../models');
 
-// function getAFLData() {
-
-//     fetch('https://api.squiggle.com.au/?q=games;complete=!100', { 
-//     // fetch('https://api.squiggle.com.au/?q=games;game=35907', { 
-    
-//         method: 'get', 
-//         // headers: new Headers({'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423'})
-//     }).then(response => response.json())
-//         .then(data => {
-//             organiseData(data);
-//         })
-//         .catch(error => {
-//             // Handle the error
-//             console.log("Error" + error);
-//         });
-// }
-
 function getAFLData() {
 
     let today = new Date();

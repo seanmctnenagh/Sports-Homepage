@@ -1,0 +1,19 @@
+[
+    {
+        "LEAGUE_NAME": "Players Championship Finals",
+        "COUNTRY_NAME": "World",
+        "COUNTRY_ID": 8,
+        "ACTUAL_TOURNAMENT_SEASON_ID": "xdWUiqoP",
+        "GROUP_ID": "0SwtclaU",
+        "SEASON_ID": 177,
+        "TEMPLATE_ID": "8_0SwtclaU",
+        "STAGES": [
+            {
+                "STAGE_ID": "r7BigtDj",
+                "STAGE_NAME": "Main",
+                "OUT": "2"
+            }
+        ]
+    } 
+]
+

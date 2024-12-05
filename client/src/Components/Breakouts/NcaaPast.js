@@ -16,7 +16,7 @@ const NCAAPast = () => {
     }, []); // Condition for GET request
 
     function getData() {
-		axios.get(`http://${ip}:3001/matches`, { params: { comp: settings["comp"], timeframe: settings["timeframe"], numDays: settings["numDays"], includeBlanks: settings["includeBlanks"]} }).then((response) => {
+		axios.get(`http://${ip}/matches`, { params: { comp: settings["comp"], timeframe: settings["timeframe"], numDays: settings["numDays"], includeBlanks: settings["includeBlanks"]} }).then((response) => {
 			setListOfMatches(response.data)
     	});
     }

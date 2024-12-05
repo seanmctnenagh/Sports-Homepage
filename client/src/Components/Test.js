@@ -31,7 +31,7 @@
 
 
 //     function getData() {
-//         axios.get(`http://${ip}:3001/matches`).then((response) => {
+//         axios.get(`http://${ip}/matches`).then((response) => {
 //             setListOfMatches(response.data.sort((a, b) => a.dateUnix - b.dateUnix));
 //         });
 //     }

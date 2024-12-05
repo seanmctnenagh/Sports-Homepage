@@ -15,7 +15,7 @@ const Timeline = ({ settings }) => {
     }, []); // Condition for GET request
 
     async function getData() {
-		axios.get(`http://${ip}:3001/matches`, { params: { comp: settings["comp"], timeframe: settings["timeframe"], numDays: settings["numDays"], includeBlanks: settings["includeBlanks"]} })
+		axios.get(`http://${ip}/matches`, { params: { comp: settings["comp"], timeframe: settings["timeframe"], numDays: settings["numDays"], includeBlanks: settings["includeBlanks"]} })
         .then(response => setListOfMatches(response.data) );
     }	
     
@@ -24,6 +24,22 @@ const Timeline = ({ settings }) => {
 		"NBA"               : [],
 		"Nations League"    : []
 	}
+
+    function getBlank(){
+        let now = new Date();
+        let today = new Date().setHours(now.getHours() - 6);
+        let yesterday = new Date().setHours(now.getHours() - 24);
+        let blankMatch = {
+            sport       : "BLANK",
+            competition : "BLANK",
+            homeTeam    : new Intl.DateTimeFormat("en-US", { weekday: "long", }).format(today),
+            awayTeam    : new Intl.DateTimeFormat("en-US", { weekday: "long", }).format(yesterday),
+            date        : today
+        }
+        return blankMatch;
+    }
+
+    
     
 	return (
         <div>
@@ -38,6 +54,27 @@ const Timeline = ({ settings }) => {
                                 return null; 
                             }
                         }
+
+                        if ( index === 0 && match.competition !== "BLANK") {
+                            let blank = getBlank()
+                            return (
+                                <>
+                                <TableRow key={-1} match={blank} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} isBreakoutTitle={isBreakoutTitle} includeBlanks={settings["includeBlanks"]} timeframe={settings["timeframe"]} />
+                                <TableRow key={index} match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} isBreakoutTitle={isBreakoutTitle} includeBlanks={settings["includeBlanks"]} timeframe={settings["timeframe"]} />
+                                </>
+                            )
+                        }
+
+                        if ( match.competition === "BLANK"){
+                            try {
+                                if (listOfMatches[index+1].competition === "BLANK"){
+                                    return null;
+                                }
+                            }
+                            catch {
+                                return null;
+                            }
+                        } 
 
                         return ( <TableRow key={index} match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} isBreakoutPage={settings["isBreakoutPage"]} isBreakoutTitle={isBreakoutTitle} includeBlanks={settings["includeBlanks"]} timeframe={settings["timeframe"]} /> );
 

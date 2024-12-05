@@ -12,7 +12,7 @@ function getRugbyData() {
     let date = today;
 
 
-    for(let i = 0; i < 10; i++) {
+    for(let i = 0; i < 7; i++) {
         fetch(`https://v1.rugby.api-sports.io/games?date=${date}`, { 
             method: 'get', 
             headers: new Headers({'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423'})
@@ -109,6 +109,9 @@ function checkTeamIds(thisMatch) {
         389, // Italy
         390, // Scotland
         391, // Wales
+        407, // Leinster
+        408, // Munster
+        409, // Ulster
         461, // Australia
         465, // New Zealand
         467, // South Africa

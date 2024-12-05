@@ -2,9 +2,9 @@ const { Matches } = require('../models');
 
 function getF1Data() {
 
-    fetch('https://v1.formula-1.api-sports.io/races?next=20', { 
-        method: 'get', 
-        headers: new Headers({'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423'})
+    fetch('https://v1.formula-1.api-sports.io/races?next=20', {
+        method: 'get',
+        headers: new Headers({ 'x-rapidapi-key': '90ff826b72e0b865ca8281b84d41c423' })
     }).then(response => response.json())
         .then(data => {
             organiseData(data);
@@ -16,22 +16,22 @@ function getF1Data() {
 }
 
 
-function organiseData(data){
+function organiseData(data) {
     let count = data.results;
 
-    for(let i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
         thisRace = data.response[i];
 
-        let race = {"sport": "F1"};
-        race.date = thisRace.date.slice(0,19) + "Z";
-        race.dateUnix = Math.floor(new Date(race.date).getTime()/1000);
+        let race = { "sport": "F1" };
+        race.date = thisRace.date.slice(0, 19) + "Z";
+        race.dateUnix = Math.floor(new Date(race.date).getTime() / 1000);
         race.competition = "F1";
         race.homeTeam = thisRace.competition.name;
         race.awayTeam = thisRace.type;
         race.matchId = thisRace.id;
         race.highlights = "";
 
-        if (thisRace.status == "Scheduled"){
+        if (thisRace.status == "Scheduled") {
             race.completed = false;
         }
         else {
@@ -51,7 +51,37 @@ function organiseData(data){
         race.awayTeam = race.awayTeam.replace("2nd Sprint Shootout", "Sprint Q2");
         race.awayTeam = race.awayTeam.replace("3rd Sprint Shootout", "Sprint Q3");
 
-        try{
+        if (["FP1", "FP2", "FP3"].includes(race.awayTeam)) { race.endDate = race.dateUnix + 3_600//_000; }
+        }
+        else {
+            switch (race.awayTeam) {
+                case "Q1":
+                    race.endDate = race.dateUnix + 1_080//_000;
+                    break;
+                case "Q2":
+                    race.endDate = race.dateUnix + 900//_000;
+                    break;
+                case "Q3":
+                case "Sprint Q1":
+                    race.endDate = race.dateUnix + 720//_000;
+                    break;
+                case "Sprint Q2":
+                    race.endDate = race.dateUnix + 600//_000;
+                    break;
+                case "Sprint Q3":
+                    race.endDate = race.dateUnix + 480//_000;
+                    break;
+                case "Race":
+                    race.endDate = race.dateUnix + 5_400//_000;
+                    break;
+                case "Sprint":
+                    race.endDate = race.dateUnix + 1_800//_00;
+                default:
+                    break;
+            }
+        }
+
+        try {
             Matches.create(race)
                 .then()
                 .catch(err => {
@@ -65,18 +95,19 @@ function organiseData(data){
                             completed: race.completed,
                             score: race.score,
                             minute: race.minute,
-                            highlights: race.highlights
+                            highlights: race.highlights,
+                            endDate: race.endDate
                         },
-                        {where: {matchId: race.matchId.toString()}}
+                        { where: { matchId: race.matchId.toString() } }
                     ).then()
-                      .catch(err => console.log(err))
+                        .catch(err => console.log(err))
                 })
         }
-        catch (error){
+        catch (error) {
             console.log(error.errno);
         }
-        
-      }
+
+    }
 }
 
 module.exports = getF1Data;

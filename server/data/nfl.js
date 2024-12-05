@@ -46,12 +46,14 @@ function organiseData(data){
         
         let teamIds = [
             // 42,     // Nebraska
-            // 47,	    // Illinois
-            60,     // Vanderbilt
+            43,     // UNLV
+            47,	    // Illinois
+            // 60,     // Vanderbilt
             // 63,     // Pittsburgh
             69,	    // Tennessee
             78,	    // Penn State
-            // 83,	    // Missouri
+            83,	    // Missouri
+            86,     // Arizona State
             103,    // Indiana
             104,    // Colorado
             106,	// Alabama
@@ -59,7 +61,7 @@ function organiseData(data){
             108,	// Notre Dame
             109,	// Georgia
             110,	// Oregon
-            111,    // Texas A&M
+            // 111,    // Texas A&M
             // 114,	// Utah
             // 115,	// Michigan
             // 122,	// USC
@@ -67,17 +69,19 @@ function organiseData(data){
             131,	// Ole Miss
             136,    // BYU
             // 145,    // Navy
-            // 151,	// Iowa State
-            174,    // Kansas State
+            151,	// Iowa State
+            // 174,    // Kansas State
             177,    // Army
-            180,    // Tulane
+            // 180,    // Tulane
+            187,    // Memphis
             188,    // South Carolina
             190,    // SMU
             195,	// Texas
-            198,	// Louisville
-            201,    // Washington State
+            197,    // Syracuse
+            // 198,	// Louisville
+            // 201,    // Washington State
             204,    // Boise State
-            207,	// LSU
+            // 207,	// LSU
             209,	// Clemson
 
         ]
@@ -104,13 +108,7 @@ function organiseData(data){
         match.endDate = thisMatch.game.date.timestamp + 10800;
 
         match.completed = 0;
-
-        // if (thisMatch.game.status.short === "FT" || thisMatch.game.status.short === "AOT") {
-        //     match.completed = true;
-        // }
-        // else {
-        //     match.completed = false;
-        // }
+        
 
         try{
             Matches.create(match)

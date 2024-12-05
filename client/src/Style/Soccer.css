@@ -1,0 +1,73 @@
+.Soccer {
+  background-color: #2684FC !important;
+  color: white !important;
+  background-image: none;
+}
+
+.PL {
+  background-color: #2684FC !important;
+  color: white !important;
+}
+
+.CL {
+  background-color: rgb(230, 196, 5) !important;
+  color: white !important;
+  opacity: 1 !important
+}
+
+.UEL {
+  background-color: silver !important;
+}
+
+.UECL { 
+  background-color: #CD7F32 !important;
+}
+
+.Bundesliga, .DFBPokal, .BuLi {
+  background-image: linear-gradient(black, red, yellow);
+  color: white !important;
+}
+
+.SerieA, .CoppaItalia {
+  background-image: linear-gradient(green, white, red);
+}
+
+.Ligue1 {
+  background-image: linear-gradient(red, white, blue);
+}
+
+.LaLiga, .CopadelRey {
+  background-image: linear-gradient(red, yellow, red);
+}
+
+.WSL {
+  background-color: rgb(0, 247, 255) !important;
+}
+
+.SPL {
+  background-color: darkgreen !important;
+  color: white !important;
+}
+
+.UWCL { 
+  background-color: pink !important;
+}
+
+.FACup {
+  background-color: darkmagenta !important;
+  color: white !important;
+}
+
+.NationsLeague {
+  background-color: orange !important;
+}
+
+.LOI {
+  background-color: green !important;
+  color: white !important;
+}
+
+.EuroQW {
+  background-color: #0058ca !important;
+  color: white !important;
+}

@@ -154,7 +154,8 @@ export const checkDatesOverall = (match) => {
 
 // }
 
-export const ip = "192.168.1.15";
+// export const ip = "192.168.1.15";
+export const ip = "93.107.160.250:29374"
 
 /**
  * @param {match} match 
@@ -334,7 +335,7 @@ export const redirect = (sport, setHockeyRedirect, setNbaRedirect, setNationsLea
 }
 
 export const getData = ( timeframe, setListOfMatches ) => {
-    axios.get(`http://${ip}:3001/matches`).then((response) => {
+    axios.get(`http://${ip}/matches`).then((response) => {
         if ( timeframe === "Past" ){
             setListOfMatches(response.data.sort((a, b) => b.dateUnix - a.dateUnix));
         }

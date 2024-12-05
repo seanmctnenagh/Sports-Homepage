@@ -1,6 +1,6 @@
 import Competition from './TableElements/Competition';
 import Title from './TableElements/Title';
-import DayDate from './TableElements/DayDate';
+// import DayDate from './TableElements/DayDate';
 import Time from './TableElements/Time';
 import Score from './TableElements/Score';
 import Highlights from './TableElements/Highlights';
@@ -10,6 +10,11 @@ import RecapStream from './TableElements/RecapStream';
 const TableRow = ({ match, index, timeframe, isBreakoutTitle, isBreakoutPage, listOfShowScores, setListOfShowScores, includeBlanks }) => {
     let isBlank = (match.competition === "BLANK");
     if ( isBlank && (!includeBlanks)) { return (null) }
+    if ( isBlank ) { return (
+        <tr>
+            <Title match={match} timeframe={timeframe} isBreakoutTitle={isBreakoutTitle} isBlank={isBlank} />
+        </tr>
+    )}
     return (
         <tr>
             {/*        Competition        */}
@@ -21,7 +26,7 @@ const TableRow = ({ match, index, timeframe, isBreakoutTitle, isBreakoutPage, li
 
 
             {/*        Date & Day        */}
-            <DayDate match={match} timeframe={timeframe} isBreakoutTitle={isBreakoutTitle} isBlank={isBlank} />
+            {/* <DayDate match={match} timeframe={timeframe} isBreakoutTitle={isBreakoutTitle} isBlank={isBlank} /> */}
 
 
             {/*        Time        */}
@@ -29,11 +34,11 @@ const TableRow = ({ match, index, timeframe, isBreakoutTitle, isBreakoutPage, li
 
 
             {/*        Score        */}
-            <Score match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} />
+            <Score match={match} index={index} listOfShowScores={listOfShowScores} setListOfShowScores={setListOfShowScores} timeframe={timeframe} isBreakoutTitle={isBreakoutTitle} />
 
 
             {/*        Highlights        */}
-            <Highlights match={match} />
+            <Highlights match={match} timeframe={timeframe} />
 
 
             {/*        ESPN Recap / Stream        */}
